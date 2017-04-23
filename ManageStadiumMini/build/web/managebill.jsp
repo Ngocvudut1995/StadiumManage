@@ -16,118 +16,183 @@
         <script src="script/bootstrap.min.js" type="text/javascript"></script>
         <script src="script/colResizable-1.6.min.js" type="text/javascript"></script>
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" type="text/css"/>
-        <script src="script/bootstrap-formhelpers.min.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            function getrow(id) {
-                console.log(id);
-            }
-            $(function () {
-
-                $("#table_bill").colResizable({
-                    liveDrag: true,
-                    gripInnerHtml: "<div class='grip'></div>",
-                    draggingClass: "dragging",
-                    resizeMode: 'overflow'
-                });
-                $('#table_bill tbody tr').click(function (e) {
-                    console.log("sdsd");
-                    $('#table_bill tbody tr').removeClass('highlighted');
-                    $(this).addClass('highlighted');
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                //Attach change eventhandler
-                $('#dtpDate').on('change.bfhdatepicker', function (e) {
-                    //Assign the value to Hidden Variable
-                    console.log($('#dtpDate').val());
-                });
-            });
-        </script>
-         <style>
-            .table_bill > th,td {
-                padding-left: 10px;
-                padding-right: 10px;
-                font-size: 16px;
-            }
-            .highlighted {
-                background-color: red;
-            }
-        </style>
+     
+     
     </head>
     <body>
-        <div class="container">
-            <h1 style="text-align: center;">Quản lý chi phí hóa đơn</h1>
+     @model IEnumerable<StadiumManage.Models.BillDetail>
+@{
+    ViewBag.Title = "ManageBill";
+}
+<script type="text/javascript" charset="utf8" src="~/Scripts/colResizable-1.6.min.js"></script>
+<link href="~/Content/bootstrap-formhelpers.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-formhelpers.min.js"></script>
+<script>
+    var CurrentSort = '@ViewBag.CurrentSort';
 
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Chí phí hóa đơn</div>
-                    <div class="panel-body" style="overflow: auto;white-space: nowrap;max-height: 4000px;">
-                        <div style="width: 100%;height: 45px">
-                            <div id="dtpDate" style="width: 30%;float: right;"class="bfh-datepicker" data-format="d-m-y" data-date="today"></div>
-                        </div>
+    function sort(sortOrder) {
 
-                        <table class="table" width="100%" border="1" cellpadding="0" cellspacing="0" id="table_bill">
-                            <thead>
-                                <tr class="table_bill">
-                                    <th>Mã hóa đơn <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Tên nhân viên <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Mã sân <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Tên sân <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Khung giờ <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Khách hàng <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Tình trạng <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Giá cả <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                    <th>Thời gian thanh toán <a href="#"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table_bookyard" ondblclick="getrow(1)">
-                                    <td>HD1001 </td>
-                                    <td>Trần Văn A </td>
-                                    <td>S1001A </td>
-                                    <td>Sân số 5A </td>
-                                    <td>17h-19h </td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>Đã thanh toán</td>
-                                    <td>Giá cả</td>
-                                    <td>15:40 20/11/2016</td>
-                                </tr>
-                                <tr class="table_bookyard" ondblclick="getrow(1)">
-                                    <td>HD1001 </td>
-                                    <td>Trần Văn A </td>
-                                    <td>S1001A </td>
-                                    <td>Sân số 5A </td>
-                                    <td>17h-19h </td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>Đã thanh toán</td>
-                                    <td>Giá cả</td>
-                                    <td>15:40 20/11/2016</td>
-                                </tr>
-                                 <tr class="table_bookyard" ondblclick="getrow(1)">
-                                    <td>HD1001 </td>
-                                    <td>Trần Văn A </td>
-                                    <td>S1001A </td>
-                                    <td>Sân số 5A </td>
-                                    <td>17h-19h </td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>Đã thanh toán</td>
-                                    <td>Giá cả</td>
-                                    <td>15:40 20/11/2016</td>
-                                </tr>
-                            </tbody>
+        if (CurrentSort.lastIndexOf("_") > 0) {
+            location.href = 'Manage?sortOrder=' + sortOrder;
+        } else {
+            location.href = 'Manage?sortOrder=' + sortOrder + "_desc";
+        }
 
-                        </table>
-                        <div>
-                            <label style="float: left">Số lượng hóa đơn : 3</label>
-                            <label style="float: right">Tổng tiên: 2000000vnđ</label>
+    }
+</script>
+<div class="container-fluid" style="padding: 0px;">
+    <div class="row" style="padding: 0px;">
+        <div class="col-md-3" style="" ng-style="">
+            <div style="background-color: #C1C1C1; height: 40px">
+                <h4 style="color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase">Thông Tin Tài Khoản</h4>
+            </div>
+            <div style="padding: 20px; text-transform: uppercase">
+                <div class="clearfix list-group" style="display: block; list-style-type: square;">
+                    <a class="list-group-item col-md-12 col-xs-12" href="">Thông tin cá nhân</a>
+                    <a class="list-group-item col-md-12 col-xs-12" href="/Accounts/InforPersonalBook">Sân đã đặt của bạn</a>
+                    @if (Convert.ToInt16(Session["Role"].ToString()) < 3)
+                    {
+
+                        <a class="list-group-item col-md-12 col-xs-12" href="/BookYard">Quản lý sân bãi đã đặt</a>
+                        if (Convert.ToInt16(Session["Role"].ToString()) < 2)
+                        {
+                            <a class="list-group-item col-md-12 col-xs-12" href="/Yard/Manage">Quản lý sân bãi</a>
+                            <a class="list-group-item col-md-12 col-xs-12" href="/Bill/Manage">Quản lý hóa đơn</a>
+                            <a class="list-group-item col-md-12 col-xs-12" href="/Accounts/Customer">Quản lý tài khoản khách hàng</a>
+                            <a class="list-group-item col-md-12 col-xs-12" href="/Accounts/Staff">Quản lý tài khoản nhân viên</a>
+                        }
+
+
+                    }
+
+                    @*<div class="list-group-item col-md-12 col-xs-12 dropdown" style="padding: 0px;">
+                            <button class="list-group-item btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
+                                    style="font-size: 14px; text-transform: uppercase; text-align: left; width: 100%">
+                                Quản lý tài khoản<span class="glyphicon glyphicon-list" style="float: right"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="/Accounts/Customer">Quản lý tài khoản khách hàng</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="/Accounts/Staff">Quản Lý tài khoản nhân viên</a></li>
+
+
+
+                            </ul>
+
+
+                        </div>*@
+                    <a class="list-group-item col-md-12 col-xs-12">Trở vể trang chính</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9" style="height: 100%;">
+            <div>
+               
+                <div style="background-color: #C1C1C1; margin-bottom: 20px; height: 40px">
+                    <h4 style="color: white; text-transform: uppercase; font-weight: bold; border-bottom: 1px solid #dedede;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px">
+                        Quản lý chi phí hóa đơn
+                    </h4>
+                </div>
+                @*<div style="background-color: #C1C1C1; height: 40px">
+                    <h4 style="color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2;
+ float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase">Quản lý chi phí hóa đơn</h4>
+                </div>*@
+                <div class="col-md-12">
+                    <div class="panel panel-default" style="min-height: 350px">
+                        <div class="panel-heading">Chí phí hóa đơn</div>
+                        <div class="panel-body">
+                            <div style="width: 100%;height: 45px">
+                                <div id="dtpDate" style="width: 30%;float: right;" class="bfh-datepicker" data-format="d-m-y" data-date="today"></div>
+                            </div>
+                            <div style="overflow: auto;white-space: nowrap;max-height: 4000px;">
+                                <table class="table" width="100%" border="1" cellpadding="0" cellspacing="0" id="table_bill">
+                                    <thead>
+                                    <tr class="table_bill info">
+                                        <th>Mã hóa đơn <a onclick=" sort('id') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Tên nhân viên <a onclick=" sort('namestaff') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Mã sân <a onclick=" sort('yard') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Tên sân <a onclick=" sort('nameyard') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Khung giờ <a onclick=" sort('tslot') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Khách hàng <a onclick=" sort('namecustomer') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Tình trạng <a onclick=" sort('status') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Giá cả <a onclick=" sort('price') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                        <th>Thời gian thanh toán <a onclick=" sort('date') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                                    </tr>
+                                    </thead>
+                                    @{
+                                        double totalPrice = 0;
+                                    }
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            double price = (1 - item.Bill.Promotion) * (item.Bill.PriceService + item.Bill.PriceYard);
+                                            totalPrice += price;
+                                            <tr class="table_bookyard" ondblclick="openEdit('@item.Bill.IDBill')">
+
+                                                <td>@item.Bill.IDBill</td>
+                                                <td>@item.AccountStaff.NameAccount</td>
+                                                <td>@item.Bill.IDYard</td>
+                                                <td>@item.Yard.NameYard</td>
+                                                <td>@item.TimeSlot</td>
+                                                <td>@item.AccountCustomer.NameAccount</td>
+                                                <td>
+                                                    @if (item.Bill.Status == true)
+                                                {@Html.Raw("Đã thanh toán")}
+                                                else
+                                                {@Html.Raw("Chưa thanh toán")}
+                                            </td>
+                                            <td>@Html.Raw(price.ToString())</td>
+                                            <td>@item.Bill.DatePay</td>
+                                        </tr>
+                                        }
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                            <div>
+                                <label style="float: left">Số lượng hóa đơn : @Model.ToList().Count</label>
+                                <label style="float: right">Tổng tiên: @totalPrice vnđ</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function openEdit(id) {
+        if (id != 0) {
+            location.href = 'Index/' + id;
+            //console.log(id);
+        }
+    }
+
+    $(document).ready(function () {
+        //$("#table_bill").colResizable({
+        //    liveDrag: true,
+        //    gripInnerHtml: "<div class='grip'></div>",
+        //    draggingClass: "dragging",
+        //    resizeMode: 'overflow'
+        //});
+        $('#table_bill tbody tr').click(function (e) {
+            console.log("sdsd");
+            $('#table_bill tbody tr').removeClass('success');
+            $(this).addClass('success');
+        });
+        $('#dtpDate').on('change.bfhdatepicker', function (e) {
+            //Assign the value to Hidden Variable
+            console.log($('#dtpDate').val());
+        });
+    });
+
+</script>
+
     </div>
 
 </div>
