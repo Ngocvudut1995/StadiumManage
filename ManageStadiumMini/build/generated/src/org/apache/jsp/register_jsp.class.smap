@@ -5,6 +5,10 @@ JSP
 *F
 + 0 register.jsp
 register.jsp
++ 1 header.jsp
+include/header.jsp
 *L
-5,127:44
+5,23:49
+1#1,73:72
+27#0,250:145
 *E

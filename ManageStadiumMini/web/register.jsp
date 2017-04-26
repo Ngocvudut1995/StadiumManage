@@ -22,11 +22,10 @@
         </style>
     </head>
 
-    <body class="container">
+    <body>
        
-@{
-    ViewBag.Title = "Login";
-}
+  <%@include file="include/header.jsp" %>
+
 <style>
     label.error {
         display: inline-block;
@@ -34,224 +33,237 @@
         width: 200px;
     }
 </style>
-@*<style type="text/css">
-        .loginmodal-container {
-            padding: 30px;
-            max-width: 350px;
-            width: 100% !important;
-            background-color: #F7F7F7;
-            margin: 0 auto;
-            border-radius: 2px;
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            font-family: roboto;
-        }
-
-            .loginmodal-container h1 {
-                text-align: center;
-                font-size: 1.8em;
-                font-family: roboto;
-            }
-
-            .loginmodal-container input[type=submit], input[type=button] {
-                width: 100%;
-                display: block;
-                margin-bottom: 10px;
-                position: relative;
-            }
-
-            .loginmodal-container input[type=text], input[type=password] {
-                height: 44px;
-                font-size: 16px;
-                width: 100%;
-                margin-bottom: 10px;
-                -webkit-appearance: none;
-                background: #fff;
-                border: 1px solid #d9d9d9;
-                border-top: 1px solid #c0c0c0;
-                /* border-radius: 2px; */
-                padding: 0 8px;
-                box-sizing: border-box;
-                -moz-box-sizing: border-box;
-            }
-
-                .loginmodal-container input[type=text]:hover, input[type=password]:hover {
-                    border: 1px solid #b9b9b9;
-                    border-top: 1px solid #a0a0a0;
-                    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-                    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-                    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-                }
-
-        .loginmodal {
-            text-align: center;
-            font-size: 14px;
-            font-family: 'Arial', sans-serif;
-            font-weight: 700;
-            height: 36px;
-            padding: 0 8px;
-            border-radius: 3px;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .loginmodal-submit {
-            /* border: 1px solid #3079ed; */
-            border: 0px;
-            color: #fff;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-            background-color: #4d90fe;
-            padding: 17px 0px;
-            font-family: roboto;
-            font-size: 14px;
-            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
-        }
-
-        .loginmodal-button {
-            /* border: 1px solid #3079ed; */
-            border: 0px;
-            color: #fff;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-            background-color: #4d90fe;
-            padding: 17px 0px;
-            font-family: roboto;
-            font-size: 14px;
-            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
-        }
-
-
-        .loginmodal-submit:hover {
-            /* border: 1px solid #2f5bb7; */
-            border: 0px;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-            background-color: #357ae8;
-            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
-        }
-
-        .loginmodal-button:hover {
-            /* border: 1px solid #2f5bb7; */
-            border: 0px;
-            text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-            background-color: #357ae8;
-            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
-        }
-    </style>*@
 <script>
-    function login() {
-        data = JSON.stringify({
-
-            "Email": ($('#Email').val()),
-            "Password": $('#Password').val()
-        });
+   
+    function EmailExisted(email) {
+        console.log(email);
         $.ajax({
-            type: "POST",
-            url: '/System/Login/',
+            type: "GET",
+            url: '/System/EmailExisted?email=' + email,
             contentType: "application/json; charset=utf-8",
-            data: "{data:" + data + "}",
+
             success: function (data) {
                 //alert('success');
                 if (data.result == true) {
-                    swal({
-                        title: 'Thông báo',
-                        text: "Bạn đã đăng nhập thành công",
-                        type: 'success',
-                        //showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        //cancelButtonColor: '#d33',
-                        confirmButtonText: 'OK!',
-                        //cancelButtonText: 'No, cancel!',
-                        confirmButtonClass: 'btn btn-success',
-                        //cancelButtonClass: 'btn btn-danger',
-                        //buttonsStyling: false
-                    }).then(function () {
-                        window.location.href = "/Home";
-                    }
-                 );
-                   
+
                 } else {
-                    swal("Thông báo", "Đăng nhập thất bại! Vui lòng thử lại!", "error");
+
                 }
-                //return data.result;
+                return data.result;
 
                 //window.location.href = '/Home/';
             }, error: function () {
-                window.location.href = "/Home/Login";
+                swal("Thông báo", "Đăng nhập thất bại! Vui lòng thử lại!", "error");
+            }
+        });
+        return true;
+    }
+    function register() {
+        var data;
+
+        data = JSON.stringify({
+
+            "Birthday": new Date($('#Birthday').val()),
+            "Address": $('#Address').val(),
+            "NameAccount": $('#NameAccount').val(),
+            "Phone": $('#Phone').val(),
+            "Email": $('#Email').val(),
+            "Password": $('#Password').val()
+        });
+
+        console.log(data);
+        $.ajax({
+            type: "POST",
+            url: '/System/Register',
+            contentType: "application/json; charset=utf-8",
+            data: "{data:" + data + "}",
+            //dataType: 'json',
+            //async: true,
+            //processData: false,
+            //cache: false,
+            success: function (result) {
+                swal({
+                    title: 'Thông báo',
+                    text: "Bạn đã đăng kí thành công",
+                    type: 'success',
+                    //showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    //cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK!',
+                    //cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    //cancelButtonClass: 'btn btn-danger',
+                    //buttonsStyling: false
+                }).then(function () {
+                    window.location.href = "/Home";
+                }
+                );
+            }, error: function () {
+                swal("Thông báo", "Đăng kí thất bại! Vui lòng thử lại!", "error");
             }
         });
     }
+
+
 </script>
-<div class="container">
+<div>
+    <div style="text-align: center">
+        <h1>Đăng kí thành viên </h1>
+    </div>
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <h2 class="well" align="center">Thông tin đăng nhập</h2><br>
-                <form id="form_login">
+        <div class="col-md-6" style="margin: auto">
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="font-weight: bold">Thông tin tài khoản đăng kí</div>
+                <div class="panel-body form-horizontal">
+                    <form id="form_register">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Họ và tên: </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="Nhập họ tên" id="NameAccount" name="NameAccount" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ngày sinh: </label>
+                            <div class="col-md-9">
+                                <input type="date" class="form-control" min="1990-01-01" id="Birthday" name="Birthday" required max="@Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd")">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Số điện thoại: </label>
+                            <div class="col-md-9">
+                                <input type="tel" class="form-control" placeholder="Nhập số điện thoại" id="Phone" name="Phone" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Địa chỉ: </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="Nhập địa chỉ" id="Address" name="Address" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email:</label>
+                            <div class="col-md-9">
+                                <input type="email" class="form-control" required placeholder="Nhập email" name="Email" id="Email" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Mật khẩu: </label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" required placeholder="Nhập mật khẩu" name="Password" id="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nhập lại mật khẩu: </label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" required placeholder="Nhập lại mật khẩu" name="RePassword" id="RePassword">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-md-9">
+                                <div class="checkbox">
+                                    <label><input type="checkbox"> Remember me</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="form-group">
-                        <label for="email">Email address:</label>
-                        <input style="width: 100%" type="email" class="form-control" name="Email" id="Email" required>
+                        <div class="col-sm-offset-2 col-md-9">
+                            <button id="btn_submit" class="btn btn-info" onclick="register()">Đăng kí</button>
+                            <button type="reset" class="btn btn-info" onclick="document.getElementById('form_register').reset()">Hủy</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input style="width: 100%" type="password" name="Password" class="form-control" id="Password" required>
-                    </div>
-                </form>
-                    <div style="text-align: center">
-                        <button id="btn_submit" class="btn btn-info" onclick="login()">Login</button>
-                        <button type="reset" class="btn btn-info" onclick="document.getElementById('form_login').reset()">Cancel</button>
-                    </div>
-              
-                
-               
-                @*<input type="email" id="Email" placeholder="Email">
-            <input type="password" id="Password" placeholder="Password">
-            <input type="button" class="login loginmodal-submit" value="Login" onclick="login()">
-            <input type="button" class="login loginmodal-submit" value="Cancel">*@
 
 
-                <!-- <div class="login-help">
-            <a href="#">Register</a> - <a href="#">Forgot Password</a>
-        </div> -->
+
+                </div>
             </div>
+
         </div>
     </div>
-   
-</div>
 
+</div>
 <script type="text/javascript">
 
     $(document).ready(function () {
+        var response;
+        $.validator.addMethod(
+    "EmailExisted",
+    function (value, element) {
+        console.log(value);
+       
+        $.ajax({
+            type: "GET",
+            url: '/System/EmailExisted?email=' + value,
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                //alert('success');
+                console.log(data.result);
+                response= !data.result;
+
+                //window.location.href = '/Home/';
+            }, error: function () {
+                swal("Thông báo", "Đăng nhập thất bại! Vui lòng thử lại!", "error");
+            }
+        });
+        return response;
+    },
+    "Email đã tồn tại"
+);
         $('#btn_submit').prop('disabled', 'disabled');
         //Khi bàn phím được nhấn và thả ra thì sẽ chạy phương thức này
-        $("#form_login").validate({
+        $("#form_register").validate({
             onfocusout: function (element) {
                 this.element(element);
             },
             rules: {
-                
+                NameAccount: "required",
+                Birthday: {
+                    required: true,
+                    dateISO: true
+                },
+                Address: "required",
+                Phone: "required",
                 Email: {
                     required: true,
-                    email: true
+                    email: true,
+                    EmailExisted:true
                 },
                 Password: {
                     required: true
+                },
+                RePassword: {
+                    required: true,
+                    equalTo: "#Password"
                 }
-               
 
             },
             messages: {
-                
+                NameAccount: "Vui lòng nhập tên tài khoản",
+                Birthday: {
+                    required: "Vui lòng nhập ngày sinh",
+                    dateISO: "Ngày sinh không tồn tại"
+                },
+
+                Address: "Vui lòng nhập địa chỉ",
+                Phone: "Vui lòng nhập số điện thoại",
                 Email: {
                     required: "Vui lòng nhập email",
-                    email: "Vui lòng nhập đúng định dạng email"
+                    email: "Vui lòng nhập đúng định dạng email",
+                    EmailExisted:"Email đã tồn tại"
                 },
                 Password: {
                     required: "Vui lòng nhập Mật khẩu"
+                },
+                RePassword: {
+                    required: "Vui lòng nhập xác nhận mật khẩu",
+                    equalTo: "Không trùng khớp mật khẩu"
                 }
             }
         });
-        $('#form_login input').on('keyup blur', function () { // fires on every keyup & blur
-            if ($('#form_login').valid()) {                   // checks form for validity
+        $('#form_register input').on('keyup blur', function () { // fires on every keyup & blur
+            if ($('#form_register').valid()) {                   // checks form for validity
                 $('#btn_submit').prop('disabled', false);        // enables button
             } else {
                 $('#btn_submit').prop('disabled', 'disabled');   // disables button
@@ -259,7 +271,5 @@
         });
     });
 </script>
-
-        </div>
     </body>
 </html>

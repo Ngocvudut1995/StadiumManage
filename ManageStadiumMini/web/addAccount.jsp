@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-     
+       <%@include file="include/header.jsp" %>
 @{
     ViewBag.Title = "Add Account";
 }
@@ -106,47 +106,7 @@
 <div class="container-fluid" style="padding: 0px;">
     <div class="row" style="padding: 0px;">
         <div class="col-md-3" style="" ng-style="">
-            <div style="background-color: #C1C1C1; height: 40px">
-                <h4 style="color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase">Thông Tin Tài Khoản</h4>
-            </div>
-            <div style="padding: 20px; text-transform: uppercase">
-                <div class="clearfix list-group" style="display: block; list-style-type: square;">
-                    <a class="list-group-item col-md-12 col-xs-12" href="">Thông tin cá nhân</a>
-                    <a class="list-group-item col-md-12 col-xs-12" href="/Accounts/InforPersonalBook">Sân đã đặt của bạn</a>
-                    @if (Convert.ToInt16(Session["Role"].ToString()) < 3)
-                    {
-
-                        <a class="list-group-item col-md-12 col-xs-12" href="/BookYard">Quản lý sân bãi đã đặt</a>
-                        if (Convert.ToInt16(Session["Role"].ToString()) < 2)
-                        {
-                            <a class="list-group-item col-md-12 col-xs-12" href="/Yard/Manage">Quản lý sân bãi</a>
-                            <a class="list-group-item col-md-12 col-xs-12" href="/Bill/Manage">Quản lý hóa đơn</a>
-                            <a class="list-group-item col-md-12 col-xs-12" href="/Accounts/Customer">Quản lý tài khoản khách hàng</a>
-                            <a class="list-group-item col-md-12 col-xs-12" href="/Accounts/Staff">Quản lý tài khoản nhân viên</a>
-                        }
-
-
-                    }
-
-                    @*<div class="list-group-item col-md-12 col-xs-12 dropdown" style="padding: 0px;">
-                            <button class="list-group-item btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
-                                    style="font-size: 14px; text-transform: uppercase; text-align: left; width: 100%">
-                                Quản lý tài khoản<span class="glyphicon glyphicon-list" style="float: right"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="/Accounts/Customer">Quản lý tài khoản khách hàng</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="/Accounts/Staff">Quản Lý tài khoản nhân viên</a></li>
-
-
-
-                            </ul>
-
-
-                        </div>*@
-                    <a class="list-group-item col-md-12 col-xs-12">Trở vể trang chính</a>
-                </div>
-            </div>
+             <%@include file="include/navAccount.jsp" %>
         </div>
         <div class="col-md-9" style="height: 100%;">
             <div>

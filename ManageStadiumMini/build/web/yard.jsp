@@ -15,10 +15,7 @@
         <script src="script/jquery-1.11.3.min.js" type="text/javascript"></script>
     </head>
     <body>
-@model StadiumManage.Models.YardView
-@{
-    ViewBag.Title = "Index";
-}
+  <%@include file="include/header.jsp" %>
 <link href="~/Content/bootstrap-formhelpers.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap-formhelpers.min.js"></script>
 <script>
