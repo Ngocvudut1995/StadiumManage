@@ -10,8 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+       
     </head>
-    <body>
+    
+        <%@include file="include/header.jsp" %>
         <div class="container">
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -27,15 +29,16 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="~/Content/slide/slide1.jpg" alt="Chania" style="width: 100%">
+                    <img src="Content/slide/slide1.jpg" alt="Chania" style="width: 100%">
                 </div>
 
                 <div class="item">
-                    <img src="~/Content/slide/slide2.jpg" alt="Chania" style="width: 100%">
+                   
+                    <img src="Content/slide/slide2.jpg" alt="Chania" style="width: 100%">
                 </div>
 
                 <div class="item">
-                    <img src="~/Content/slide/slide3.jpg" alt="Flower" style="width: 100%">
+                    <img src="Content/slide/slide3.jpg" alt="Flower" style="width: 100%">
                 </div>
 
 
@@ -98,5 +101,5 @@
 
     </div>
 </div>
-    </body>
+    
 </html>
