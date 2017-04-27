@@ -4,16 +4,14 @@
     Author     : VuDang
 --%>
 
+<%@page import="com.dut.stadium.model.BillDetail"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-            <link href="css/font-awesome.min.css" rel="stylesheet"/>
-           <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="script/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="script/bootstrap.min.js" type="text/javascript"></script>
+           
         <script src="script/colResizable-1.6.min.js" type="text/javascript"></script>
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
      
@@ -74,34 +72,37 @@
                                         <th>Thời gian thanh toán <a onclick=" sort('date') "> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
                                     </tr>
                                     </thead>
-                                    @{
+                                    <%
                                         double totalPrice = 0;
-                                    }
-                                    <tbody>
-                                        @foreach (var item in Model)
+                                    %>
+                                    
+                                        <% try {
+                                            BillDetail bill_deDetail = new BillDetail();
+                                            for(BillDetail item:bill_deDetail.getAll())
                                         {
-                                            double price = (1 - item.Bill.Promotion) * (item.Bill.PriceService + item.Bill.PriceYard);
-                                            totalPrice += price;
-                                            <tr class="table_bookyard" ondblclick="openEdit('@item.Bill.IDBill')">
+                                            double price = (1 - item.Bill.getPromotion()) * (item.Bill.getPriceService() + item.Bill.getPriceYard());
+                                            totalPrice += price;%>
+                                            <tr class="table_bookyard" ondblclick="openEdit('<%=item.Bill.getIDBill()%>')">
 
-                                                <td>@item.Bill.IDBill</td>
-                                                <td>@item.AccountStaff.NameAccount</td>
-                                                <td>@item.Bill.IDYard</td>
-                                                <td>@item.Yard.NameYard</td>
-                                                <td>@item.TimeSlot</td>
-                                                <td>@item.AccountCustomer.NameAccount</td>
+                                                <td><%=item.Bill.getIDBill()%></td>
+                                                <td><%=item.AccountStaff.getNameAccount()%></td>
+                                                <td><%=item.Bill.getIDYard()%></td>
+                                                <td><%=item.Yard.getNameYard()%></td>
+                                                <td><%=item.TimeSlot%></td>
+                                                <td><%=item.AccountCustomer.getNameAccount()%></td>
                                                 <td>
-                                                    @if (item.Bill.Status == true)
-                                                {@Html.Raw("Đã thanh toán")}
+                                                    <%if (item.Bill.isStatus() == true)
+                                                {out.print("Đã thanh toán");}
                                                 else
-                                                {@Html.Raw("Chưa thanh toán")}
+                                                {out.print("Chưa thanh toán");}%>
                                             </td>
-                                            <td>@Html.Raw(price.ToString())</td>
-                                            <td>@item.Bill.DatePay</td>
+                                            <td><%=price%></td>
+                                            <td><%=item.Bill.getDatePay()%></td>
                                         </tr>
-                                        }
+                                        <%}} catch (Exception e) {
+                                            }%>
 
-                                    </tbody>
+                                    
 
                                 </table>
                             </div>

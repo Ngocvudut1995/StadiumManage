@@ -74,7 +74,7 @@
         console.log(data);
         $.ajax({
             type: "POST",
-            url: '/System/Register',
+            url: 'register.do',
             contentType: "application/json; charset=utf-8",
             data: "{data:" + data + "}",
             //dataType: 'json',
