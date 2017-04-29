@@ -4,6 +4,7 @@
     Author     : VuDang
 --%>
 
+<%@page import="com.dut.stadium.model.AccountStaff"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,20 +13,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-       
+        
   <%@include file="include/header.jsp" %>
-
-<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-<link href="~/Content/bootstrap-formhelpers.min.css" rel="stylesheet"/>
-<script src="~/Scripts/bootstrap-datepicker.min.js"></script>
-<script src="~/Scripts/bootstrap-formhelpers.min.js"></script>
-<link href="~/Content/bootstrap-datepicker3.min.css" rel="stylesheet" />
-
-<script src="~/Scripts/moment.min.js"></script>
-
+<link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" type="text/css"/>
+        <script src="script/bootstrap-formhelpers.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
-    $.fn.bootstrapDP = datepicker;
     var id = null;
     function deleteStaff() {
         swal({
@@ -39,7 +31,7 @@
         }).then(function () {
             $.ajax({
                 type: "POST",
-                url: '/Accounts/DeleteStaff?id=' + id,
+                url: '/DeleteStaff?id=' + id,
                 dataType: 'json',
                 contentType: false,
                 processData: false,
@@ -57,7 +49,7 @@
                         //cancelButtonClass: 'btn btn-danger',
                         //buttonsStyling: false
                     }).then(function () {
-                        window.location.href = "/Accounts/Staff";
+                        window.location.href = "staff.jsp";
                     }
                      );
                     // alert('succes!!');
@@ -70,38 +62,31 @@
     }
     function openCreate() {
 
-        window.location.href = '/Accounts/Add';
+        window.location.href = '/addAccount.jsp';
     }
     var CurrentSort = '@ViewBag.CurrentSort';
     function sort(sortOrder) {
 
         if (CurrentSort.lastIndexOf("_") > 0) {
-            location.href = 'Staff?sortOrder=' + sortOrder;
+            location.href = 'staff.jsp?sortOrder=' + sortOrder;
         } else {
-            location.href = 'Staff?sortOrder=' + sortOrder + "_desc";
+            location.href = 'staff.jsp?sortOrder=' + sortOrder + "_desc";
         }
 
     }
     function openEdit() {
         if (id != null) {
-            location.href = 'EditStaff/' + id;
+            location.href = 'editstaff.jsp?id=' + id;
         }
     }
 
     function getrow(value) {
-        @*$('#myVar').val(id);
-        @ViewBag.IDAccount = $('#myVar').val();*@
         id = value;
         //console.log(id);
     }
     $(function () {
 
-        //$("#table_bill").colResizable({
-        //    liveDrag: true,
-        //    gripInnerHtml: "<div class='grip'></div>",
-        //    draggingClass: "dragging",
-        //    resizeMode: 'overflow'
-        //});
+      
         $('#table_account tbody tr').click(function (e) {
             //console.log("sdsd");
             $('#table_account tbody tr').removeClass('success');
@@ -145,21 +130,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr onclick=" getrow('@item._account.IDAccount') ">
+                                        <% 
+                                            AccountStaff accountStaff = new AccountStaff();
+                                        for (AccountStaff item : accountStaff.getAll())
+                                        {%>
+                                            <tr onclick="getrow('<%=item.account.getIDAccount()%>')">
 
-                                                <td>@item._account.NameAccount</td>
-                                                <td>@item._account.Birthday</td>
-                                                <td>@item._account.Address</td>
-                                                <td>@item._account.Phone</td>
-                                                <td>@item._account.Email</td>
-                                                <td>@item._account.Identification</td>
-                                                <td>@item._account.CreatedDay</td>
-                                                <td>@item.Position</td>
-                                                <td>@item.Salary</td>
+                                                <td><%=item.account.getNameAccount()%></td>
+                                                <td><%=item.account.getBirthday()%></td>
+                                                <td><%=item.account.getAddress()%></td>
+                                                <td><%=item.account.getPhone()%></td>
+                                                <td><%=item.account.getEmail()%></td>
+                                                <td><%=item.account.getIdentification()%></td>
+                                                <td><%=item.account.getCreatedDay()%></td>
+                                                <td><%=item.getPosition()%></td>
+                                                <td><%=item.getSalary()%></td>
                                             </tr>
-                                        }
+                                        <%}%>
 
                                     </tbody>
 
@@ -193,17 +180,14 @@
 <script>
     $(document).ready(function () {
         //Attach change eventhandler
-        console.log($('#dtpDate').val() + 'sdsd');
+       // console.log($('#dtpDate').val() + 'sdsd');
 
         //$('#dtpDate').on('show.bfhdatepicker', function(e) {
         //    //Assign the value to Hidden Variable
         //    $('#hdnSelectedDate').val($('#dtpDate').val());
         //    console.log($('#dtpDate').val() + 'sdsd');
         //});
-        $('#tdate').datepicker({
-            format: 'dd/mm/yyyy',
-            todayBtn: "linked"
-        });
+       
     });
 
 </script>

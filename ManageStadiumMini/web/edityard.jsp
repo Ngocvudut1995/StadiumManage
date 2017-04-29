@@ -4,28 +4,45 @@
     Author     : VuDang
 --%>
 
+<%@page import="com.dut.stadium.model.Yard"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="script/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="script/bootstrap.min.js" type="text/javascript"></script>
+        
     </head>
     <body>
        <%@include file="include/header.jsp" %>
 
-<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
-<script src="~/Scripts/tinymce/tinymce.min.js"></script>
-<script>tinymce.init({selector: 'textarea'});</script>
+ <script src="tinymce/js/tinymce/jquery.tinymce.min.js" type="text/javascript"></script>
+        <script src="tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+        <script>tinymce.init({selector: 'textarea'});</script>
+<%
+    String id = request.getParameter("id");
+      Yard Model = new Yard();
+      String Insert;
+    if(id != null){
+      
+        Model = Model.getByID(id);
+        Insert = "edit";
+    }else{
+        Model.setIDYard(Model.getIDTuTang());
+        Model.setStatus("activiting");
+        Model.setTypeYard("5");
+        Model.setPrice(150000);
+         Model.setNameYard("");
+        Model.setDecription("");
+         Insert = "add";
+    }
+%>
 <script>
     $(document).ready(function() {
         //Attach change eventhandler
 
-        var status = '@Model.Status';
-        var type = '@Model.TypeYard';
+        var status = '<%=Model.getStatus()%>';
+        var type = '<%=Model.getTypeYard()%>';
         console.log(status + "," + type);
 
         if (status == 'activiting') {
@@ -53,7 +70,7 @@
         }
         $.ajax({
             type: "POST",
-            url: '/Yard/Upload?id=@Model.IDYard',
+            url: '/uploadyard.do?id=<%=Model.getIDYard()%>',
             data: formData,
             dataType: 'json',
             contentType: false,
@@ -72,7 +89,7 @@
                     //cancelButtonClass: 'btn btn-danger',
                     //buttonsStyling: false
                 }).then(function() {
-                        window.location.href = "/Yard/Manage";
+                        window.location.href = "/manageyard.jsp";
                     }
                 );
                 // alert('succes!!');
@@ -97,7 +114,7 @@
         console.log(data);
         $.ajax({
             type: "POST",
-            url: '/Yard/@ViewBag.Insert/',
+            url: '/<%=Insert%>yard/',
             contentType: "application/json; charset=utf-8",
             data: "{data:" + data + "}",
             //dataType: 'json',
@@ -147,13 +164,13 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Mã sân:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="IDYard" value="@Model.IDYard" readonly />
+                                    <input type="text" class="form-control" id="IDYard" value="<%=Model.getIDYard()%>" readonly />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Tên sân:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="NameYard" value="@Model.NameYard" />
+                                    <input type="text" class="form-control" id="NameYard" value="<%=Model.getNameYard()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -178,52 +195,21 @@
                                 <label class="control-label col-sm-4">Hình ảnh:</label>
                                 <div class="col-sm-8">
                                     <input type="file" class="form-control" id="FileUpload" multiple />
-                                    @*<button style="float: left;margin-left: 20px" type="button" id="Upload" onclick="upload()">Upload </button>*@
-                                    @*<form id="form2Submit">
-                                    <input id="fileSelect" name="fileSelect[]" type="file" multiple accept=".jpg,.png">
-                                    <input type="submit"/>
-                                </form>*@
-                                    @*<input type="file" hidden class="form-control" id="Image" value="@Model.Image"/>*@
+                                    
                                 </div>
                             </div>
-                            @*<div class="form-group">
-                            <label class="control-label col-sm-4">Thuê bóng:</label>
-                            <div class="col-sm-8">
-                                <select class="form-control">
-                                    <option>Có</option>
-                                    <option>Không</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Thuê áo:</label>
-                            <div class="col-sm-8">
-                                <select class="form-control">
-                                    <option>Có</option>
-                                    <option>Không</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Thuê giày:</label>
-                            <div class="col-sm-8">
-                                <select class="form-control">
-                                    <option>Có</option>
-                                    <option selected="selected">Không</option>
-                                </select>
-                            </div>
-                        </div>*@
+                            
 
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Giá:</label>
                                 <div class="col-sm-8">
-                                    <input class="form-control" type="number" id="Price" value="@Model.Price" />
+                                    <input class="form-control" type="number" id="Price" value="<%=Model.getPrice()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Mô tả</label>
                                 <div class="col-sm-8">
-                                    <textarea id="Decription">@Model.Decription</textarea>
+                                    <textarea id="Decription"><%=Model.getDecription()%></textarea>
                                 </div>
                             </div>
                             <div class="form-group" style="text-align: center;">

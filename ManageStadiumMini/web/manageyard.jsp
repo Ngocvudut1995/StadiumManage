@@ -4,6 +4,7 @@
     Author     : VuDang
 --%>
 
+<%@page import="com.dut.stadium.model.Yard"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,13 +29,13 @@
     var id = 0;
     function openCreate() {
         id = 0;
-        location.href = 'Edit';
+        location.href = 'edityard';
     }
     function openEdit() {
         if (id === 0) {
-            location.href = 'Edit';
+            location.href = 'edityard';
         } else {
-            location.href = 'Edit/' + id;
+            location.href = 'edityard?id=' + id;
         }
     }
         function getrow(value) {
@@ -97,16 +98,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr class="table_bookyard" onclick="getrow('@item.IDYard')">
-                                            <td>@item.IDYard</td>
-                                            <td>@item.NameYard</td>
-                                            <td>@item.TypeYard</td>
-                                            <td>@item.Status</td>
-                                            <td>@item.Price</td>
+                                    <% 
+                                        Yard yard = new Yard();
+                                    for(Yard item : yard.getAll()){
+                                        %>
+                                  
+                                        <tr class="table_bookyard" onclick="getrow('<%=item.getIDYard()%>')">
+                                            <td><%=item.getIDYard()%></td>
+                                            <td><%=item.getNameYard()%></td>
+                                            <td><%=item.getTypeYard()%> người</td>
+                                            <td><%=item.getStatus()%></td>
+                                            <td><%=item.getPrice()%></td>
                                         </tr>
-                                    }
+                                   <% }%>
 
                                 </tbody>
 

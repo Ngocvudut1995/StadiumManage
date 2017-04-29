@@ -1,4 +1,5 @@
-    <%-- 
+    <%@page import="com.dut.stadium.model.AccountStaff"%>
+<%-- 
     Document   : editstaff
     Created on : Apr 23, 2017, 6:38:10 PM
     Author     : VuDang
@@ -13,6 +14,10 @@
     </head>
     <body>
           <%@include file="include/header.jsp" %>
+          <%
+    AccountStaff Model = new  AccountStaff();
+    Model = Model.getByID(request.getParameter("id"));
+%>
        <script>
     format_date_picker = function(date) {
         var today = new Date(date);
@@ -91,7 +96,7 @@
     $(document).ready(function() {
 
         //Attach change eventhandler
-        var positon = '@Model.Position';
+        var positon = '<%=Model.getPosition()%>';
         console.log(positon);
 
         if (positon == 'Employee') {
@@ -102,6 +107,7 @@
     });
 
 </script>
+
 <div class="container-fluid" style="padding: 0px;">
     <div class="row" style="padding: 0px;">
         <div class="col-md-3" style="" ng-style="">
@@ -127,48 +133,45 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Tên tài khoản:</label>
                                 <div class="col-sm-8">
-                                    @*@Html.EditorFor(model => model._account.NameAccount, new { htmlAttributes = new { @class = "form-control" } })*@
-                                    <input type="text" class="form-control" id="NameAccount" value="@Model._account.NameAccount" />
+                                   
+                                    <input type="text" class="form-control" id="NameAccount" value="<%=Model.account.getNameAccount()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Ngày sinh:</label>
                                 <div class="col-sm-8">
-                                    @*@Html.EditorFor(model => model._account.Birthday, new { htmlAttributes = new { @class = "form-control", @type = "date", @value = Model._account.Birthday.ToString("yyyy-MM-dd") } })*@
-                                    <input type="date" class="form-control" id="Birthday" value="@if (Model._account.Birthday != null)
-                                                                                                 {
-                                                                                                    @Html.Raw(Convert.ToDateTime(Model._account.Birthday).ToString("yyyy-MM-dd")) 
-                                                                                                 }" />
+                                  
+                                    <input type="date" class="form-control" id="Birthday" value="<%=Model.account.getBirthday()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Địa chỉ:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="Address" value="@Model._account.Address" />
+                                    <input type="text" class="form-control" id="Address" value="<%=Model.account.getAddress()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">CMND:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="Identification" value="@Model._account.Identification" />
+                                    <input type="text" class="form-control" id="Identification" value="<%=Model.account.getIdentification()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Số điện thoại:</label>
                                 <div class="col-sm-8">
-                                    <input type="tel" class="form-control" id="Phone" value="@Model._account.Phone" />
+                                    <input type="tel" class="form-control" id="Phone" value="<%=Model.account.getPhone()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Email: </label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control" id="Email" value="@Model._account.Email" />
+                                    <input type="email" class="form-control" id="Email" value="<%=Model.account.getEmail()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Thời gian đăng kí:</label>
                                 <div class="col-sm-8">
-                                    <input readonly type="date" class="form-control" id="CreatedDay" value="@Convert.ToDateTime(Model._account.CreatedDay).ToString("yyyy-MM-dd")" />
+                                    <input readonly type="date" class="form-control" id="CreatedDay" value="<%=Model.account.getCreatedDay()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -185,7 +188,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Lương:</label>
                                 <div class="col-sm-8">
-                                    <input type="number" id="Salary" class="form-control" value="@Model.Salary" />
+                                    <input type="number" id="Salary" class="form-control" value="<%=Model.getSalary()%>" />
                                 </div>
                             </div>
                             <div class="form-group" style="text-align: center;">

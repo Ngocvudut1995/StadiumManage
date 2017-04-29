@@ -4,6 +4,7 @@
     Author     : VuDang
 --%>
 
+<%@page import="com.dut.stadium.model.AccountCustomer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,10 @@
     </head>
     <body>
          <%@include file="include/header.jsp" %>
+                 <%
+    AccountCustomer Model = new  AccountCustomer();
+    Model = Model.getByID(request.getParameter("id"));
+%>
 <script>
     function update_staff() {
 
@@ -90,53 +95,50 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Tên tài khoản:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="NameAccount" value="@Model._account.NameAccount" />
+                                    <input type="text" class="form-control" id="NameAccount" value="<%=Model.account.getNameAccount()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Ngày sinh:</label>
                                 <div class="col-sm-8">
-                                    <input type="date" class="form-control" id="Birthday" value="@if (Model._account.Birthday != null)
-                                                                                                 {
-                                                                                                    @Html.Raw(Convert.ToDateTime(Model._account.Birthday).ToString("yyyy-MM-dd")) 
-                                                                                                 }" />
+                                    <input type="date" class="form-control" id="Birthday" value="<%=Model.account.getBirthday()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Địa chỉ:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="Address" value="@Model._account.Address" />
+                                    <input type="text" class="form-control" id="Address" value="<%=Model.account.getAddress()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">CMND:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="Identification" value="@Model._account.Identification" />
+                                    <input type="text" class="form-control" id="Identification" value="<%=Model.account.getIdentification()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Số điện thoại:</label>
                                 <div class="col-sm-8">
-                                    <input type="tel" class="form-control" id="Phone" value="@Model._account.Phone" />
+                                    <input type="tel" class="form-control" id="Phone" value="<%=Model.account.getPhone()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Email: </label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control" id="Email" value="@Model._account.Email" />
+                                    <input type="email" class="form-control" id="Email" value="<%=Model.account.getEmail()%>" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Thời gian đăng kí:</label>
                                 <div class="col-sm-8">
-                                    <input type="date" class="form-control" id="CreatedDay" readonly value="@Convert.ToDateTime(Model._account.CreatedDay).ToString("yyyy-MM-dd")" />
+                                    <input type="date" class="form-control" id="CreatedDay" readonly value="<%=Model.account.getCreatedDay()%>" />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Level:</label>
                                 <div class="col-sm-8">
-                                    <input type="number" id="Level" class="form-control" value="@Model.Level" />
+                                    <input type="number" id="Level" class="form-control" value="<%=Model.getLevel()%>" />
                                 </div>
                             </div>
                             <div class="form-group" style="text-align: center;">
