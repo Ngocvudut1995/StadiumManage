@@ -7,8 +7,10 @@ package com.dut.stadium.model;
 
 import com.dut.stadium.util.MSSQLConnection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
@@ -81,6 +83,21 @@ public class AccountCustomer {
 
         }
         return null;
+  }
+  public boolean update(){
+      MSSQLConnection db = new MSSQLConnection();
+        try {
+            if(db.execute("Update customer set Level = "+Level+" where IDCustomer = '"+account.getIDAccount()+"'")){
+               return db.execute("Update account set Address = '"+account.getAddress()+"'NameAccount = '"+account.getNameAccount()+"',"
+                        + "Birthday = '"+account.getBirthday()+"',Email = '"+account.getEmail()+"',"
+                        + "Identification = '"+account.getIdentification()+",Phone = '"+account.getPhone()+"' where "
+                                + "IDAccount = '"+account.getIDAccount()+"'");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+      return false;
   }
     public int getLevel() {
         return Level;

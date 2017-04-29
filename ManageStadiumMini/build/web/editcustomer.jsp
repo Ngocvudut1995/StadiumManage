@@ -23,7 +23,7 @@
 
         var data = JSON.stringify({
             "Level": $('#Level').val(),
-            "_account": {
+          
                 "IDAccount": $('#IDAccount').val(),
                 "Birthday": new Date($('#Birthday').val()),
                 "Address": $('#Address').val(),
@@ -31,15 +31,13 @@
                 "Identification": $('#Identification').val(),
                 "Phone": $('#Phone').val(),
                 "Email": $('#Email').val()
-
-            }
         });
         console.log(data);
         $.ajax({
-            type: "PUT",
-            url: '/Accounts/UpdateCustomer/',
+            type: "POST",
+            url: 'UpdateCustomer',
             contentType: "application/json; charset=utf-8",
-            data: "{data:" + data + "}",
+            data: data,
             //dataType: 'json',
             //async: true,
             //processData: false,

@@ -5,22 +5,29 @@
  */
 package com.dut.stadium.controller;
 
-import com.dut.stadium.filter.MyServlet;
+import com.dut.stadium.model.Account;
+import com.dut.stadium.model.AccountCustomer;
+import com.dut.stadium.util.MSSQLConnection;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.time.Instant;
+import java.util.Date;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author VuDang
  */
-public class register extends MyServlet {
+public class UpdateCustomer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +46,10 @@ public class register extends MyServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet register</title>");            
+            out.println("<title>Servlet UpdateCustomer</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet register at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateCustomer at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,52 +81,48 @@ public class register extends MyServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+   BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        String json = "";
+        if(br != null){
+            json = br.readLine();
+        } 
         
-        String NameAccount = request.getParameter("NameAccount");
-        String Birthday = request.getParameter("Birthday");
-        String Phone = request.getParameter("Phone");
-        String Address = request.getParameter("Address");
-        String Email = request.getParameter("Email");
-        String Password = request.getParameter("Password");
-        
-        try {
-            
-            Class.forName("com.mysql.jdbc.Driver");
-
-	//creating connection with the database 
-          Connection  con=DriverManager.getConnection
-                     ("jdbc:mysql:/ /localhost:3306/qlsb_db","root","");
-
-        PreparedStatement ps=con.prepareStatement
-                  ("INSERT INTO `account`(`NameAccount`, `Birthday`, `Phone`, `Address`, `Email`, `Password`) VALUES (?,?,?,?,?,?)");
-        
-        ps.setString(1, NameAccount);
-        ps.setString(2, Birthday);
-        ps.setString(3, Phone);
-        ps.setString(4, Address);
-        ps.setString(5, Email);
-        ps.setString(6, Password);
-        
-        int i=ps.executeUpdate();
-        
-            if(i>0)
-          {
-            out.println("You are sucessfully registered");
-          }
-        } catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
-        
+        JSONParser parser = new JSONParser();
+         try {
+            JSONObject data = (JSONObject) parser.parse(json);
+             AccountCustomer accountCustomer = new AccountCustomer();
+             Account account = new Account();
+             account.setIDAccount(data.get("IDAccount").toString());
+             account.setNameAccount(data.get("NameAccount").toString());
+             account.setAddress(data.get("Address").toString());
+             account.setBirthday(new Date(data.get("Birthday").toString()));
+             account.setEmail(data.get("Email").toString());
+             account.setIdentification(data.get("Identification").toString());
+             account.setPhone(data.get("Phone").toString());
+             accountCustomer.account = account;
+             accountCustomer.setLevel((int)data.get("Level"));
+      
+            if (accountCustomer.update()) {
+               
+                response.getWriter().write("True");
+               
+            } else {
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().write("False");
+            }
+           // response.sendRedirect("home.jsp");
+        } catch (Exception e) {
+            System.out.println("sds");          
         }
     }
-
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
+}

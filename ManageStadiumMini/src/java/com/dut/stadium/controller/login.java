@@ -5,8 +5,11 @@
  */
 package com.dut.stadium.controller;
 
+import com.dut.stadium.util.ValidateLogin;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -75,39 +78,20 @@ public class login extends HttpServlet {
         //processRequest(request, response);
         try {
             // Lay gia tri nguoi dung
-            String strUsername = request.getParameter("username").toString();
+            String strEmail = request.getParameter("email").toString();
             String strPassword = request.getParameter("password").toString();
-            String checkRememberme = request.getParameter("checkbox").toString();
-            // xu ly tinh toan
-            if (strUsername.equalsIgnoreCase("") || strPassword.equalsIgnoreCase("")) {
-                String error = "You must type something!";
-                request.setAttribute("errors", error);
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-                //response.sendRedirect("login.jsp?error=305");
-
-            } else if (strUsername != "" && strPassword != "") {
-                if (strUsername.length() < 3 || strPassword.length() < 3) {
-                    response.sendRedirect("login.jsp?error=304");
-                    return;
-                }
-                if (strUsername.equalsIgnoreCase("admin")
-                        && strPassword.equalsIgnoreCase("admin")) {
-//                    HttpSession session = request.getSession();
-//                    session.setAttribute("MemberID","1");
-//                    session.setAttribute("Username","ngocvu");   
-                    if (checkRememberme.equalsIgnoreCase("on")) {
-                        Cookie userCookie = new Cookie("user", strUsername);
-                        userCookie.setMaxAge(60 * 60 * 24 * 365); //Store cookie for 1 year
-                        response.addCookie(userCookie);
-                        
-                    }
-                    response.sendRedirect("home.jsp");
-
-                } else {
-
-                    response.sendRedirect("login.jsp?error=303");
-                }
-            }
+            
+        if(ValidateLogin.checkUser(strEmail, strPassword))
+        {
+            RequestDispatcher rs = request.getRequestDispatcher("/Home");
+            rs.forward(request, response);
+        }
+        else
+        {
+           out.println("Email or Password incorrect");
+           RequestDispatcher rs = request.getRequestDispatcher("login.do");
+           rs.include(request, response);
+        }
         } catch (Exception e) {
         }
     }

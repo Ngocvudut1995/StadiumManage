@@ -3,22 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/WEB-INF/web.xml</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/model/AccountCustomer.java</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/addAccount.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/managebill.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/manageyard.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/editstaff.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/model/BillDetail.java</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/model/Yard.java</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/include/header.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/model/AccountStaff.java</file>
+            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/controller/login.java</file>
             <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/editcustomer.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/edityard.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/css/sweetalert2.min.css</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/model/Account.java</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/staff.jsp</file>
-            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/customer.jsp</file>
+            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/controller/register.java</file>
+            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/model/AccountCustomer.java</file>
+            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/util/MSSQLConnection.java</file>
+            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/web/include/navAccount.jsp</file>
+            <file>file:/G:/Document/DA_PTTHT/GitHub/StadiumManage/ManageStadiumMini/src/java/com/dut/stadium/controller/UpdateCustomer.java</file>
         </group>
     </open-files>
 </project-private>
