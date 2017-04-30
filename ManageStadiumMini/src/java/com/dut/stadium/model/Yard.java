@@ -7,8 +7,11 @@ package com.dut.stadium.model;
 
 import com.dut.stadium.util.MSSQLConnection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
@@ -86,7 +89,30 @@ public class Yard {
         }
         return null;
     }
-
+   public boolean add(){
+      MSSQLConnection db = new MSSQLConnection();
+        try {
+              return db.execute("INSERT INTO yard (IDYard,NameYard,TypeYard, "
+                      + "Status, Price, Decription)"
+                      + " VALUES ('"+IDYard+"', '"+NameYard+"', '"+TypeYard+"', '"+Status+"',"
+                              + " '"+Price+"', '"+Decription+"')");
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+      return false;
+  }
+   public boolean update(){
+      MSSQLConnection db = new MSSQLConnection();
+        try {
+              return db.execute("update yard set NameYard = '"+NameYard+"',Status =' "+Status+"'"
+                        + ",Price = "+Price+",Decription = '"+Decription+"',TypeYard = '"+TypeYard+"' where"
+                                + " IDYard = '"+IDYard+"'");
+   
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+      return false;
+  }
     public String getIDYard() {
         return IDYard;
     }

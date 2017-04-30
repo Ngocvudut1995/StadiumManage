@@ -169,7 +169,7 @@ if (true)
       out.write("            \"Level\": $('#Level').val(),\r\n");
       out.write("          \r\n");
       out.write("                \"IDAccount\": $('#IDAccount').val(),\r\n");
-      out.write("                \"Birthday\": new Date($('#Birthday').val()),\r\n");
+      out.write("                \"Birthday\": $('#Birthday').val(),\r\n");
       out.write("                \"Address\": $('#Address').val(),\r\n");
       out.write("                \"NameAccount\": $('#NameAccount').val(),\r\n");
       out.write("                \"Identification\": $('#Identification').val(),\r\n");
@@ -201,7 +201,7 @@ if (true)
       out.write("                    //cancelButtonClass: 'btn btn-danger',\r\n");
       out.write("                    //buttonsStyling: false\r\n");
       out.write("                }).then(function() {\r\n");
-      out.write("                        window.location.href = '/Accounts/Customer';\r\n");
+      out.write("                        //window.location.href = '/Accounts/Customer';\r\n");
       out.write("                    }\r\n");
       out.write("                );\r\n");
       out.write("\r\n");
@@ -266,7 +266,9 @@ if (true)
       out.write("                        <div class=\"panel-heading\" style=\"font-weight: bold\">Thông tin tài khoản</div>\r\n");
       out.write("                        <div class=\"panel-body form-horizontal\">\r\n");
       out.write("\r\n");
-      out.write("                            <input type=\"hidden\" id=\"IDAccount\" value=\"@Model._account.IDAccount\" />\r\n");
+      out.write("                            <input type=\"hidden\" id=\"IDAccount\" value=\"");
+      out.print(Model.account.getIDAccount());
+      out.write("\" />\r\n");
       out.write("                            <div class=\"form-group\">\r\n");
       out.write("                                <label class=\"control-label col-sm-4\">Tên tài khoản:</label>\r\n");
       out.write("                                <div class=\"col-sm-8\">\r\n");

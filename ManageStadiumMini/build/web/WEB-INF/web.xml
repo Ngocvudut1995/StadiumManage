@@ -4,6 +4,22 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <filter>
+        <filter-name>FilterJSP</filter-name>
+        <filter-class>com.dut.stadium.filter.FilterJSP</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FiterServlet</filter-name>
+        <filter-class>com.dut.stadium.filter.FiterServlet</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiterServlet</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterJSP</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>register</servlet-name>
         <servlet-class>com.dut.stadium.controller.register</servlet-class>
@@ -25,6 +41,46 @@
         <servlet-name>UpdateCustomer</servlet-name>
         <servlet-class>com.dut.stadium.controller.UpdateCustomer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateStaff</servlet-name>
+        <servlet-class>com.dut.stadium.controller.UpdateStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Createstaff</servlet-name>
+        <servlet-class>com.dut.stadium.controller.Createstaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Createcustomer</servlet-name>
+        <servlet-class>com.dut.stadium.controller.Createcustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddYard</servlet-name>
+        <servlet-class>com.dut.stadium.controller.AddYard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditYard</servlet-name>
+        <servlet-class>com.dut.stadium.controller.EditYard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetTimeSlot</servlet-name>
+        <servlet-class>com.dut.stadium.controller.GetTimeSlot</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetCalendar</servlet-name>
+        <servlet-class>com.dut.stadium.controller.GetCalendar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailExisted</servlet-name>
+        <servlet-class>com.dut.stadium.controller.EmailExisted</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookYard</servlet-name>
+        <servlet-class>com.dut.stadium.controller.BookYard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.dut.stadium.controller.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register.do</url-pattern>
@@ -43,7 +99,47 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateCustomer</servlet-name>
-        <url-pattern>/UpdateCustomer</url-pattern>
+        <url-pattern>/UpdateCustomer.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStaff</servlet-name>
+        <url-pattern>/UpdateStaff.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Createstaff</servlet-name>
+        <url-pattern>/Createstaff.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Createcustomer</servlet-name>
+        <url-pattern>/Createcustomer.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddYard</servlet-name>
+        <url-pattern>/addYard.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditYard</servlet-name>
+        <url-pattern>/editYard.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetTimeSlot</servlet-name>
+        <url-pattern>/getTimeSlot.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCalendar</servlet-name>
+        <url-pattern>/getCalendar.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailExisted</servlet-name>
+        <url-pattern>/EmailExisted.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookYard</servlet-name>
+        <url-pattern>/BookYard.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -34,7 +34,7 @@ public class BillDetail {
                     id = rs.getString("IDCustomer");
                     Bill bill = new Bill();
                     bill.setIDBill(rs.getString("IDBill"));
-                    //bill_detail.Bill.setIDBill(rs.getString("IDBill"));
+                  
                    bill.setIDCustomer(id);
                     bill.setDatePay(rs.getDate("DatePay"));
                   bill.setIDStaff(rs.getString("IDStaff"));
@@ -44,19 +44,24 @@ public class BillDetail {
                     bill.setPriceService(rs.getDouble("PriceService"));
                    bill.setPriceYard(rs.getDouble("PriceYard"));
                   bill.setPromotion(rs.getInt("Promotion"));
+                  bill.setStatus(rs.getBoolean("Status"));
                  
                     ResultSet rs_Yard = db.query("Select * from yard where IDYard = '"+rs.getString("IDYard")+"'");
                     Yard yard = new Yard();
                     if(rs_Yard.next()){
                        yard.setIDYard(rs_Yard.getString("IDYard"));
-                    yard.setNameYard(rs_Yard.getString("NameYard"));
+                       yard.setNameYard(rs_Yard.getString("NameYard"));
+                       yard.setTypeYard(rs_Yard.getString("TypeYard"));
                     }
                    
                      ResultSet rs_Customer = db.query("Select * from account where IDAccount = '"+rs.getString("IDCustomer")+"'");
                      Account account_customer = new Account();
                      if(rs_Customer.next()){
                          account_customer.setIDAccount(rs_Customer.getString("IDAccount"));
-                     account_customer.setNameAccount(rs_Customer.getString("NameAccount"));
+                         account_customer.setNameAccount(rs_Customer.getString("NameAccount"));
+                         account_customer.setPhone(rs_Customer.getString("Phone"));
+                         account_customer.setAddress(rs_Customer.getString("Address"));
+                         account_customer.setEmail(rs_Customer.getString("Email"));
                      }
                      
                      ResultSet rs_Staff = db.query("Select * from account where IDAccount = '"+rs.getString("IDStaff")+"'");

@@ -10,9 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="script/bootstrap.min.js" type="text/javascript"></script>
-        <script src="script/jquery-1.11.3.min.js" type="text/javascript"></script>
+      
     </head>
     }
 
@@ -34,14 +32,15 @@
             "Email": ($('#Email').val()),
             "Password": $('#Password').val()
         });
+        console.log(data);
         $.ajax({
             type: "POST",
-            url: '/System/Login/',
+            url: 'login.do',
             contentType: "application/json; charset=utf-8",
-            data: "{data:" + data + "}",
+            data: data,
             success: function (data) {
                 //alert('success');
-                if (data.result == true) {
+                if (data == 'True') {
                     swal({
                         title: 'Thông báo',
                         text: "Bạn đã đăng nhập thành công",
@@ -55,7 +54,7 @@
                         //cancelButtonClass: 'btn btn-danger',
                         //buttonsStyling: false
                     }).then(function () {
-                        window.location.href = "/Home";
+                        window.location.href = "home.jsp";
                     }
                  );
                    
@@ -66,7 +65,7 @@
 
                 //window.location.href = '/Home/';
             }, error: function () {
-                window.location.href = "/Home/Login";
+                //window.location.href = "login.jsp";
             }
         });
     }

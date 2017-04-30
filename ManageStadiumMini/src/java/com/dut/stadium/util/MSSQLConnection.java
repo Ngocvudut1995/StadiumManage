@@ -37,7 +37,7 @@ public class MSSQLConnection {
         Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String connection = "jdbc:mysql://localhost:"+DB_PORT+"/"+DB_NAME;
+            String connection = "jdbc:mysql://localhost:"+DB_PORT+"/"+DB_NAME+"?useUnicode=true&characterEncoding=UTF-8";
           
              conn = DriverManager.getConnection(connection, DB_USERNAME, DB_PASSWORD);
             //conn = DriverManager.getConnection("jdbc:sqlserver://localhost:" + DB_PORT + ";databaseName=" + DB_NAME + ";user=" + DB_USERNAME + ";password=" + DB_PASSWORD + ";");

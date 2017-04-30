@@ -4,6 +4,8 @@
     Author     : VuDang
 --%>
 
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,16 +15,13 @@
     </head>
     <body>
        <%@include file="include/header.jsp" %>
-@{
-    ViewBag.Title = "Add Account";
-}
+
 <script>
     function addAccount() {
         var data, url;
         if ($("#Position").prop('selectedIndex') == 0) {
             data = JSON.stringify({
                 "Level": $('#Level').val(),
-                "_account": {
                     "Birthday": new Date($('#Birthday').val()),
                     "Address": $('#Address').val(),
                     "NameAccount": $('#NameAccount').val(),
@@ -30,15 +29,14 @@
                     "Phone": $('#Phone').val(),
                     "Email": $('#Email').val()
 
-                }
+           
 
             });
-            url = 'Customer/';
+            url = 'customer';
         } else {
             data = JSON.stringify({
                 "Position": $("#Position").prop('selectedIndex') == 1 ? 'Employee' : 'Manager',
                 "Salary": $("#Salary").val(),
-                "_account": {
                     "Birthday": new Date($('#Birthday').val()),
                     "Address": $('#Address').val(),
                     "NameAccount": $('#NameAccount').val(),
@@ -46,18 +44,16 @@
                     "Phone": $('#Phone').val(),
                     "Email": $('#Email').val()
 
-                }
-
             });
-            url = 'Staff/';
+            url = 'staff';
         }
 
         console.log(data);
         $.ajax({
             type: "POST",
-            url: '/Accounts/Create' + url,
+            url: 'Create' + url+".do",
             contentType: "application/json; charset=utf-8",
-            data: "{data:" + data + "}",
+            data:data,
             //dataType: 'json',
             //async: true,
             //processData: false,
@@ -77,7 +73,7 @@
                     //cancelButtonClass: 'btn btn-danger',
                     //buttonsStyling: false
                 }).then(function () {
-                   window.location.href = '/Accounts/' + url;
+                   window.location.href = url+".jsp";
                 });
 
             },
@@ -132,7 +128,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Ngày sinh:</label>
                                 <div class="col-sm-8">
-                                    <input type="date" class="form-control" id="Birthday" max="@DateTime.Now.Date.ToString("yyyy-MM-dd")" min="1911-01-01" />
+                                    <input type="date" class="form-control" id="Birthday" max="<% SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");out.print(sdfr.format(new Date()));%>" min="1911-01-01" />
                                 </div>
                             </div>
                             <div class="form-group">

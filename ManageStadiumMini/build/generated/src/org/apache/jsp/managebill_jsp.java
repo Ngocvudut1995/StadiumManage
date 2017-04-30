@@ -13,9 +13,8 @@ public final class managebill_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.List<String> _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.ArrayList<String>(2);
+    _jspx_dependants = new java.util.ArrayList<String>(1);
     _jspx_dependants.add("/include/header.jsp");
-    _jspx_dependants.add("/include/navAccount.jsp");
   }
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
@@ -66,10 +65,14 @@ public final class managebill_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("  ");
       out.write(" \n");
-      out.write("<link href=\"css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
-      out.write(" <script src=\"script/jquery-1.11.3.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("        <script src=\"script/bootstrap.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("       \n");
+      out.write("<link href=\"../css/Site.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write("<link href=\"../css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write(" <script src=\"../script/jquery-1.11.3.min.js\" type=\"text/javascript\"></script>\n");
+      out.write("        <script src=\"../script/bootstrap.min.js\" type=\"text/javascript\"></script>\n");
+      out.write("        <link href=\"../css/font-awesome.min.css\" rel=\"stylesheet\" />\n");
+      out.write("        <link href=\"../css/sweetalert2.min.css\" rel=\"stylesheet\" />\n");
+      out.write("        <script src=\"../script/sweetalert2.min.js\"></script>\n");
+      out.write("        <script src=\"../script/jquery.validate.min.js\"></script>\n");
       out.write("<nav class=\"navbar navbar-inverse\">\n");
       out.write("        <div class=\"container-fluid\">\n");
       out.write("            <div class=\"navbar-header\">\n");
@@ -135,7 +138,9 @@ if (false)
       out.write("                    </ul>\n");
       out.write("                <ul class=\"nav navbar-nav navbar-right\">\n");
       out.write("                    ");
-if (true)
+          
+                     if (session.getAttribute("userid")== null)
+
                     {
       out.write("\n");
       out.write("                        <li><a href=\"register.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Đăng kí</a></li>\n");
@@ -146,7 +151,9 @@ if (true)
                     else
                     {
       out.write("\n");
-      out.write("                        <li><a href=\"infopersonal.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào @Session[\"Name\"]</a></li>\n");
+      out.write("                        <li><a href=\"infopersonal.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào ");
+      out.print(session.getAttribute("userid"));
+      out.write("</a></li>\n");
       out.write("                        <li><a href=\"logout.do\"><span class=\"glyphicon glyphicon-log-in\"></span> Đăng xuất</a></li>\n");
       out.write("                   \n");
       out.write("                   ");
@@ -159,10 +166,10 @@ if (true)
       out.write("    </nav>");
       out.write("\n");
       out.write("<script type=\"text/javascript\" charset=\"utf8\" src=\"~/Scripts/colResizable-1.6.min.js\"></script>\n");
-      out.write("<link href=\"~/Content/bootstrap-formhelpers.min.css\" rel=\"stylesheet\" />\n");
-      out.write("<script src=\"~/Scripts/bootstrap-formhelpers.min.js\"></script>\n");
+      out.write("<link href=\"css/bootstrap-formhelpers.min.css\" rel=\"stylesheet\" />\n");
+      out.write("<script src=\"script/bootstrap-formhelpers.min.js\"></script>\n");
       out.write("<script>\n");
-      out.write("    var CurrentSort = '@ViewBag.CurrentSort';\n");
+      out.write("   \n");
       out.write("\n");
       out.write("    function sort(sortOrder) {\n");
       out.write("\n");
@@ -177,40 +184,7 @@ if (true)
       out.write("<div class=\"container-fluid\" style=\"padding: 0px;\">\n");
       out.write("    <div class=\"row\" style=\"padding: 0px;\">\n");
       out.write("        <div class=\"col-md-3\" style=\"\" ng-style=\"\">\n");
-      out.write("          ");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write(" <div style=\"background-color: #C1C1C1; height: 40px\">\n");
-      out.write("                <h4 style=\"color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase\">Thông Tin Tài Khoản</h4>\n");
-      out.write("            </div>\n");
-      out.write("            <div style=\"padding: 20px; text-transform: uppercase\">\n");
-      out.write("                <div class=\"clearfix list-group\" style=\"display: block; list-style-type: square;\">\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infopersonal.jsp\">Thông tin cá nhân</a>\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infoPersonalBook.jsp\">Sân đã đặt của bạn</a>\n");
-      out.write("                    ");
-if (true)
-                    {
-      out.write("\n");
-      out.write("\n");
-      out.write("                        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"bookyard.jsp\">Quản lý sân bãi đã đặt</a>\n");
-      out.write("                       ");
- if (true)
-                        {
-      out.write("\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"manageyard.jsp\">Quản lý sân bãi</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"managebill.jsp\">Quản lý hóa đơn</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"customer.jsp\">Quản lý tài khoản khách hàng</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"staff.jsp\">Quản lý tài khoản nhân viên</a>\n");
-      out.write("                       ");
- }
-                    }
-      out.write("\n");
-      out.write("\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"home.jsp\">Trở vể trang chính</a>\n");
-      out.write("                </div>\n");
-      out.write("            </div>");
-      out.write("\n");
+      out.write("         \n");
       out.write("        </div>\n");
       out.write("        <div class=\"col-md-9\" style=\"height: 100%;\">\n");
       out.write("            <div>\n");
@@ -247,6 +221,7 @@ if (true)
       out.write("                                    ");
 
                                         double totalPrice = 0;
+                                    	int count = 0;
                                     
       out.write("\n");
       out.write("                                    \n");
@@ -255,12 +230,14 @@ if (true)
                                             BillDetail bill_deDetail = new BillDetail();
                                             for(BillDetail item:bill_deDetail.getAll())
                                         {
+                                            count++;
                                             double price = (1 - item.Bill.getPromotion()) * (item.Bill.getPriceService() + item.Bill.getPriceYard());
                                             totalPrice += price;
       out.write("\n");
       out.write("                                            <tr class=\"table_bookyard\" ondblclick=\"openEdit('");
       out.print(item.Bill.getIDBill());
-      out.write("')\">\n");
+      out.write("')\" onMouseOver=\"this.style.color='#00F'\" onMouseOut=\"this.style.color='#000'\">   \n");
+      out.write("    \n");
       out.write("\n");
       out.write("                                                <td>");
       out.print(item.Bill.getIDBill());
@@ -306,8 +283,12 @@ if (item.Bill.isStatus() == true)
       out.write("                            </div>\n");
       out.write("\n");
       out.write("                            <div>\n");
-      out.write("                                <label style=\"float: left\">Số lượng hóa đơn : @Model.ToList().Count</label>\n");
-      out.write("                                <label style=\"float: right\">Tổng tiên: @totalPrice vnđ</label>\n");
+      out.write("                                <label style=\"float: left\">Số lượng hóa đơn : ");
+ out.print(count); 
+      out.write("</label>\n");
+      out.write("                                <label style=\"float: right\">Tổng tiền: ");
+ out.print(totalPrice); 
+      out.write(" vnđ</label>\n");
       out.write("                            </div>\n");
       out.write("                        </div>\n");
       out.write("                    </div>\n");
@@ -321,7 +302,8 @@ if (item.Bill.isStatus() == true)
       out.write("<script type=\"text/javascript\">\n");
       out.write("    function openEdit(id) {\n");
       out.write("        if (id != 0) {\n");
-      out.write("            location.href = 'Index/' + id;\n");
+      out.write("            //location.href = 'Index/' + id;\n");
+      out.write("            location.href = 'bill.jsp?idBill=' + id;\n");
       out.write("            //console.log(id);\n");
       out.write("        }\n");
       out.write("    }\n");

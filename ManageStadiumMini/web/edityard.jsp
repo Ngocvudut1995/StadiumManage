@@ -105,7 +105,6 @@
         var data = JSON.stringify({
             "IDYard": $('#IDYard').val(),
             "NameYard": $('#NameYard').val(),
-            "Address": $('#Address').val(),
             "Status": $("#Status").prop('selectedIndex') == 0 ? 'activiting' : 'reparing',
             "TypeYard": $("#TypeYard").prop('selectedIndex') == 0 ? '5' : '7',
             "Price": $('#Price').val(),
@@ -114,18 +113,14 @@
         console.log(data);
         $.ajax({
             type: "POST",
-            url: '/<%=Insert%>yard/',
+            url: '<%=Insert%>Yard.do',
             contentType: "application/json; charset=utf-8",
-            data: "{data:" + data + "}",
-            //dataType: 'json',
-            //async: true,
-            //processData: false,
-            //cache: false,
+            data: data,
             success: function(data) {
                 //alert('success');
                 console.log(data.result);
-                if (data.result == "existed") {
-                    swal("Thông báo", "Tên sân đã tồn tại", "error");
+                if (data.result == "False") {
+                    swal("Thông báo", "Đã xảy ra lỗi thêm thất bại!", "error");
                 } else {
                    upload();
                 }

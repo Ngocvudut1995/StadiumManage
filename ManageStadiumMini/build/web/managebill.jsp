@@ -1,8 +1,4 @@
-<%-- 
-    Document   : managebill
-    Created on : Apr 5, 2017, 7:13:32 PM
-    Author     : VuDang
---%>
+
 
 <%@page import="com.dut.stadium.model.BillDetail"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,10 +16,10 @@
     <body>
   <%@include file="include/header.jsp" %>
 <script type="text/javascript" charset="utf8" src="~/Scripts/colResizable-1.6.min.js"></script>
-<link href="~/Content/bootstrap-formhelpers.min.css" rel="stylesheet" />
-<script src="~/Scripts/bootstrap-formhelpers.min.js"></script>
+<link href="css/bootstrap-formhelpers.min.css" rel="stylesheet" />
+<script src="script/bootstrap-formhelpers.min.js"></script>
 <script>
-    var CurrentSort = '@ViewBag.CurrentSort';
+   
 
     function sort(sortOrder) {
 
@@ -74,15 +70,18 @@
                                     </thead>
                                     <%
                                         double totalPrice = 0;
+                                    	int count = 0;
                                     %>
                                     
                                         <% try {
                                             BillDetail bill_deDetail = new BillDetail();
                                             for(BillDetail item:bill_deDetail.getAll())
                                         {
+                                            count++;
                                             double price = (1 - item.Bill.getPromotion()) * (item.Bill.getPriceService() + item.Bill.getPriceYard());
                                             totalPrice += price;%>
-                                            <tr class="table_bookyard" ondblclick="openEdit('<%=item.Bill.getIDBill()%>')">
+                                            <tr class="table_bookyard" ondblclick="openEdit('<%=item.Bill.getIDBill()%>')" onMouseOver="this.style.color='#00F'" onMouseOut="this.style.color='#000'">   
+    
 
                                                 <td><%=item.Bill.getIDBill()%></td>
                                                 <td><%=item.AccountStaff.getNameAccount()%></td>
@@ -108,8 +107,8 @@
                             </div>
 
                             <div>
-                                <label style="float: left">Số lượng hóa đơn : @Model.ToList().Count</label>
-                                <label style="float: right">Tổng tiên: @totalPrice vnđ</label>
+                                <label style="float: left">Số lượng hóa đơn : <% out.print(count); %></label>
+                                <label style="float: right">Tổng tiền: <% out.print(totalPrice); %> vnđ</label>
                             </div>
                         </div>
                     </div>
@@ -123,7 +122,8 @@
 <script type="text/javascript">
     function openEdit(id) {
         if (id != 0) {
-            location.href = 'Index/' + id;
+            //location.href = 'Index/' + id;
+            location.href = 'bill.jsp?idBill=' + id;
             //console.log(id);
         }
     }

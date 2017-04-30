@@ -1,11 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%> 
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
- <script src="script/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="script/bootstrap.min.js" type="text/javascript"></script>
-        <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <link href="css/sweetalert2.min.css" rel="stylesheet" />
-    <script src="script/sweetalert2.min.js"></script>
-    <script src="script/jquery.validate.min.js"></script>
+<link href="../css/Site.css" rel="stylesheet" type="text/css"/>
+<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+ <script src="../script/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="../script/bootstrap.min.js" type="text/javascript"></script>
+        <link href="../css/font-awesome.min.css" rel="stylesheet" />
+        <link href="../css/sweetalert2.min.css" rel="stylesheet" />
+        <script src="../script/sweetalert2.min.js"></script>
+        <script src="../script/jquery.validate.min.js"></script>
 <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -58,7 +59,9 @@
                                } %>'><a href="#">Danh sách sân</a></li>
                     </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <%if (true)
+                    <%          
+                     if (session.getAttribute("userid")== null)
+
                     {%>
                         <li><a href="register.jsp"><span class="glyphicon glyphicon-user"></span> Đăng kí</a></li>
                         <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
@@ -66,7 +69,7 @@
                     <%}
                     else
                     {%>
-                        <li><a href="infopersonal.jsp"><span class="glyphicon glyphicon-user"></span> Xin Chào @Session["Name"]</a></li>
+                        <li><a href="infopersonal.jsp"><span class="glyphicon glyphicon-user"></span> Xin Chào <%=session.getAttribute("name")%></a></li>
                         <li><a href="logout.do"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
                    
                    <% }%>

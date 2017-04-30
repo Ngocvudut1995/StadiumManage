@@ -5,17 +5,28 @@
  */
 package com.dut.stadium.controller;
 
+import com.dut.stadium.util.MSSQLConnection;
 import com.dut.stadium.util.ValidateLogin;
+import com.sun.net.httpserver.Authenticator;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONObject;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import util.Encode;
 
 /**
  *
@@ -76,21 +87,42 @@ public class login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(),StandardCharsets.UTF_8));
+        String json = "";
+        if(br != null){
+            json = br.readLine();
+        } 
+        JSONParser parser = new JSONParser();
+      
         try {
+             JSONObject data = (JSONObject) parser.parse(json);
             // Lay gia tri nguoi dung
-            String strEmail = request.getParameter("email").toString();
-            String strPassword = request.getParameter("password").toString();
-            
-        if(ValidateLogin.checkUser(strEmail, strPassword))
+            String strEmail =  data.get("Email").toString();
+            String strPassword = data.get("Password").toString();
+            MSSQLConnection db = new MSSQLConnection();
+            ResultSet rs = db.query("Select * from account where Email = '"+strEmail+"' "
+                    + "and Password = '"+Encode.getSecurePassword(strPassword, "DUT")+"'");
+        if(rs.next())
         {
-            RequestDispatcher rs = request.getRequestDispatcher("/Home");
-            rs.forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("userid", rs.getString("IDAccount"));
+              session.setAttribute("name", rs.getString("NameAccount"));
+              ResultSet rs_staff = db.query("select * from staff where IDStaff = '" + rs.getString("IDAccount") + "'");
+                if (rs_staff.next()) {
+                    if (rs_staff.getString("Position").equalsIgnoreCase("Employee")) {
+                          session.setAttribute("role", "2");
+                    }else{
+                         session.setAttribute("role", "1");
+                    }
+                }else{
+                    session.setAttribute("role", "3");
+                }
+              response.getWriter().write("True");
+       
         }
         else
         {
-           out.println("Email or Password incorrect");
-           RequestDispatcher rs = request.getRequestDispatcher("login.do");
-           rs.include(request, response);
+            response.getWriter().write("False");
         }
         } catch (Exception e) {
         }

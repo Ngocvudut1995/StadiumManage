@@ -25,7 +25,7 @@
             "Level": $('#Level').val(),
           
                 "IDAccount": $('#IDAccount').val(),
-                "Birthday": new Date($('#Birthday').val()),
+                "Birthday": $('#Birthday').val(),
                 "Address": $('#Address').val(),
                 "NameAccount": $('#NameAccount').val(),
                 "Identification": $('#Identification').val(),
@@ -35,7 +35,7 @@
         console.log(data);
         $.ajax({
             type: "POST",
-            url: 'UpdateCustomer',
+            url: 'UpdateCustomer.do',
             contentType: "application/json; charset=utf-8",
             data: data,
             //dataType: 'json',
@@ -57,7 +57,7 @@
                     //cancelButtonClass: 'btn btn-danger',
                     //buttonsStyling: false
                 }).then(function() {
-                        window.location.href = '/Accounts/Customer';
+                        //window.location.href = '/Accounts/Customer';
                     }
                 );
 
@@ -89,7 +89,7 @@
                         <div class="panel-heading" style="font-weight: bold">Thông tin tài khoản</div>
                         <div class="panel-body form-horizontal">
 
-                            <input type="hidden" id="IDAccount" value="@Model._account.IDAccount" />
+                            <input type="hidden" id="IDAccount" value="<%=Model.account.getIDAccount()%>" />
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Tên tài khoản:</label>
                                 <div class="col-sm-8">

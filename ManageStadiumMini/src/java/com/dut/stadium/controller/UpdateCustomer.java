@@ -12,6 +12,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import javax.json.JsonObject;
@@ -81,7 +84,8 @@ public class UpdateCustomer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        request.setCharacterEncoding("UTF-8");
+   BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(),StandardCharsets.UTF_8));
         String json = "";
         if(br != null){
             json = br.readLine();
@@ -95,12 +99,16 @@ public class UpdateCustomer extends HttpServlet {
              account.setIDAccount(data.get("IDAccount").toString());
              account.setNameAccount(data.get("NameAccount").toString());
              account.setAddress(data.get("Address").toString());
-             account.setBirthday(new Date(data.get("Birthday").toString()));
+             
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = new Date(df.parse(data.get("Birthday").toString()).getTime());
+           //  Date date = new Date(data.get("Birthday").toString());
+             account.setBirthday(d);
              account.setEmail(data.get("Email").toString());
              account.setIdentification(data.get("Identification").toString());
              account.setPhone(data.get("Phone").toString());
              accountCustomer.account = account;
-             accountCustomer.setLevel((int)data.get("Level"));
+             accountCustomer.setLevel(Integer.parseInt(data.get("Level").toString()));
       
             if (accountCustomer.update()) {
                

@@ -5,6 +5,8 @@
  */
 package com.dut.stadium.model;
 
+import com.dut.stadium.util.MSSQLConnection;
+import java.sql.ResultSet;
 import java.util.Date;
 
 /**
@@ -19,7 +21,30 @@ public class Account {
 	private String Password;
 	private Date Birthday;
 	private String Phone;
+         public Account getByID(String id){
+        MSSQLConnection db = new MSSQLConnection();
+       Account account = new Account();
+        try {
+                ResultSet rs_account = db.query("Select * from account where IDAccount = '"+id+"'");
+                if(rs_account.next()){
+                   
+                   account.setAddress(rs_account.getString("Address"));
+                    account.setBirthday(rs_account.getDate("Birthday"));
+                    account.setCreatedDay(rs_account.getDate("CreatedDay"));
+                   account.setEmail(rs_account.getString("Email"));
+                   account.setIDAccount(rs_account.getString("IDAccount"));
+                    account.setIdentification(rs_account.getString("Identification"));
+                    account.setNameAccount(rs_account.getString("NameAccount"));
+                    account.setPhone(rs_account.getString("Phone"));
+                }
+               
+           return account;
 
+        } catch (Exception ex) {
+
+        }
+        return null;
+  }
     public String getIDAccount() {
         return IDAccount;
     }

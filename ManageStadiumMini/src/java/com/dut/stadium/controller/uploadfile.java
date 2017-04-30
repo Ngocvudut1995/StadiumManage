@@ -91,6 +91,7 @@ public class uploadfile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        String idyard = request.getParameter("id");
         response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
             response.setCharacterEncoding("UTF-8");
         if (!ServletFileUpload.isMultipartContent(request)) {
@@ -142,13 +143,15 @@ public class uploadfile extends HttpServlet {
                     // processes only fields that are not form fields
                     if (!item.isFormField()) {
                         
-                        String fileName = new File(item.getName()).getName();
+                        //String fileName = new File(item.getName()).getName();
+                       
                          // Check Extension
                         String ext = FilenameUtils.getExtension(item.getName());
                         if (!(ext.equalsIgnoreCase("jpg") || ext.equalsIgnoreCase("png"))) {
                             response.getWriter().write("false");
                             return;
                         }
+                         String fileName = "avatar_"+idyard+".jpg";
                         String filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
 

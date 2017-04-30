@@ -4,6 +4,8 @@
     Author     : VuDang
 --%>
 
+<%@ page import="java.sql.*,java.util.*" %>
+<%@page import="com.dut.stadium.model.BillDetail"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,6 +35,57 @@
     });
 
 </script>
+	
+	<% 
+		String maHD = request.getParameter("idBill");
+		String tenKH = "";
+		String soDT = "";
+		String diaChi = "";
+		String email = "";
+		String maSan = "";
+		String tenSan = "";
+		String loaiSan = "";
+		String khungGio = "";
+		String giaSan = "";
+		String giaDV = "";
+		String khuyenMai = ""; 
+		String tongTien = "";
+		String trangThai1 = "";
+		String trangThai2 = "";
+		try {
+			BillDetail bill_deDetail = new BillDetail();
+			for(BillDetail item:bill_deDetail.getAll())
+			{
+				if(item.Bill.getIDBill().equals(maHD)){
+					double price = (1 - item.Bill.getPromotion()) * (item.Bill.getPriceService() + item.Bill.getPriceYard());
+					tenKH = item.AccountCustomer.getNameAccount();
+					soDT = item.AccountCustomer.getPhone();
+					diaChi = item.AccountCustomer.getAddress();
+					email = item.AccountCustomer.getEmail();
+					maSan = item.Bill.getIDYard();
+					tenSan = item.Yard.getNameYard();
+					loaiSan = item.Yard.getTypeYard();
+					khungGio = item.TimeSlot;
+					giaSan = item.Bill.getPriceYard() + "";
+					giaDV = item.Bill.getPriceService() + "";
+					khuyenMai = item.Bill.getPromotion() + "";
+					tongTien = price + "";
+					if(item.Bill.isStatus()){
+						trangThai1 = "Đã thanh toán";
+						trangThai2 = "Chưa thanh toán";
+					}
+					else{
+						trangThai1 = "Chưa thanh toán";
+						trangThai2 = "Đã thanh toán";
+					}
+				}
+			}
+		}
+		catch(Exception ex){
+			
+		}
+	%>
+
 <div class="container-fluid" style="padding: 0px;">
     <div class="row" style="padding: 0px;">
         <div class="col-md-3" style="" ng-style="">
@@ -52,94 +105,99 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Chi tiết chi phí hóa đơn</div>
                         <div class="panel-body">
-                            <form>
+                        
+                            <form action="bill2.jsp" method="post">
+                            
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Khách Hàng:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.AccountCustomer.NameAccount</label>
+                                        <label class="control-labe"><% out.print(tenKH); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Số ĐT:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.AccountCustomer.Phone</label>
+                                        <label class="control-labe"><% out.print(soDT); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Địa chỉ:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.AccountCustomer.Address</label>
+                                        <label class="control-labe"><% out.print(diaChi); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Email:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.AccountCustomer.Email</label>
+                                        <label class="control-labe"><% out.print(email); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Mã sân:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.Bill.IDYard</label>
+                                        <label class="control-labe"><% out.print(maSan); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Tên sân:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.Yard.NameYard</label>
+                                        <label class="control-labe"><% out.print(tenSan); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Loại sân:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.Yard.TypeYard người</label>
+                                        <label class="control-labe"><% out.print(loaiSan); %> người</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Khung giờ:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.TimeSlot</label>
+                                        <label class="control-labe"><% out.print(khungGio); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Giá sân:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.Bill.PriceYard vnđ</label>
+                                        <label class="control-labe"><% out.print(giaSan); %> vnđ</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Dịch vụ:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.Bill.PriceService vnđ</label>
+                                        <label class="control-labe"><% out.print(giaDV); %> vnđ</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Khuyến mãi:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe">@Model.Bill.Promotion %</label>
+                                        <label class="control-labe"><% out.print(khuyenMai); %> %</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Tổng tiền:</label>
                                     <div class="col-sm-8">
-                                        <label class="control-labe" id="total_price"></label>
+                                        <label class="control-labe" id="total_price"><% out.print(tongTien); %></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Tình trạng:</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" id="Status">
-                                            <option>Chưa thanh toán</option>
-                                            <option>Đã thanh toán</option>
+                                            <option><% out.print(trangThai1); %></option>
+                                            <option><% out.print(trangThai2); %></option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group" style="text-align: center;">
-                                    @*<input style="margin-top: 20px" class="btn btn-primary" type="button" value="Thanh toán" />*@
+                                <div class="form-group" style="text-align: center;">                              	
+									<input style="margin-top: 20px" class="btn btn-primary" type="submit" value="Thanh toán" />
+									<input type="hidden" name="maHD" value="<% out.print(maHD); %>">
                                     <input style="margin-top: 20px" class="btn btn-info" type="button" value="Xuất hóa đơn" />
                                 </div>
+                                
                             </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -149,7 +207,7 @@
     </div>
 </div>
 
-
+	
 
     </body>
 </html>
