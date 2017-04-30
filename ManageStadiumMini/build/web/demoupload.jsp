@@ -41,13 +41,13 @@
                         data.append(key, value);
                     });
 
-                    //console.log(data);
+                    console.log(data);
                     postFilesData(data);
                 }
 
                 function postFilesData(data) {
                     $.ajax({
-                        url: 'uploadfile.do',
+                        url: 'uploadFile',
                         type: 'POST',
                         data: data,
                         cache: false,

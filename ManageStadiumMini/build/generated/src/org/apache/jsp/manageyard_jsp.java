@@ -69,10 +69,14 @@ public final class manageyard_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        \n");
       out.write("  ");
       out.write(" \n");
+      out.write("<link href=\"css/Site.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("<link href=\"css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write(" <script src=\"script/jquery-1.11.3.min.js\" type=\"text/javascript\"></script>\n");
       out.write("        <script src=\"script/bootstrap.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("       \n");
+      out.write("        <link href=\"css/font-awesome.min.css\" rel=\"stylesheet\" />\n");
+      out.write("        <link href=\"css/sweetalert2.min.css\" rel=\"stylesheet\" />\n");
+      out.write("        <script src=\"script/sweetalert2.min.js\"></script>\n");
+      out.write("        <script src=\"script/jquery.validate.min.js\"></script>\n");
       out.write("<nav class=\"navbar navbar-inverse\">\n");
       out.write("        <div class=\"container-fluid\">\n");
       out.write("            <div class=\"navbar-header\">\n");
@@ -138,7 +142,9 @@ if (false)
       out.write("                    </ul>\n");
       out.write("                <ul class=\"nav navbar-nav navbar-right\">\n");
       out.write("                    ");
-if (true)
+          
+                     if (session.getAttribute("userid")== null)
+
                     {
       out.write("\n");
       out.write("                        <li><a href=\"register.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Đăng kí</a></li>\n");
@@ -149,7 +155,9 @@ if (true)
                     else
                     {
       out.write("\n");
-      out.write("                        <li><a href=\"infopersonal.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào @Session[\"Name\"]</a></li>\n");
+      out.write("                        <li><a href=\"infopersonal.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào ");
+      out.print(session.getAttribute("name"));
+      out.write("</a></li>\n");
       out.write("                        <li><a href=\"logout.do\"><span class=\"glyphicon glyphicon-log-in\"></span> Đăng xuất</a></li>\n");
       out.write("                   \n");
       out.write("                   ");
@@ -168,13 +176,13 @@ if (true)
       out.write("    var id = 0;\n");
       out.write("    function openCreate() {\n");
       out.write("        id = 0;\n");
-      out.write("        location.href = 'Edit';\n");
+      out.write("        location.href = 'edityard.jsp';\n");
       out.write("    }\n");
       out.write("    function openEdit() {\n");
       out.write("        if (id === 0) {\n");
-      out.write("            location.href = 'Edit';\n");
+      out.write("            location.href = 'edityard.jsp';\n");
       out.write("        } else {\n");
-      out.write("            location.href = 'Edit/' + id;\n");
+      out.write("            location.href = 'edityard.jsp?id=' + id;\n");
       out.write("        }\n");
       out.write("    }\n");
       out.write("        function getrow(value) {\n");
@@ -212,35 +220,35 @@ if (true)
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write(" <div style=\"background-color: #C1C1C1; height: 40px\">\n");
-      out.write("                <h4 style=\"color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase\">Thông Tin Tài Khoản</h4>\n");
-      out.write("            </div>\n");
-      out.write("            <div style=\"padding: 20px; text-transform: uppercase\">\n");
-      out.write("                <div class=\"clearfix list-group\" style=\"display: block; list-style-type: square;\">\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infopersonal.jsp\">Thông tin cá nhân</a>\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infoPersonalBook.jsp\">Sân đã đặt của bạn</a>\n");
-      out.write("                    ");
-if (true)
-                    {
+      out.write("<div style=\"background-color: #C1C1C1; height: 40px\">\n");
+      out.write("    <h4 style=\"color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase\">Thông Tin Tài Khoản</h4>\n");
+      out.write("</div>\n");
+      out.write("<div style=\"padding: 20px; text-transform: uppercase\">\n");
+      out.write("    <div class=\"clearfix list-group\" style=\"display: block; list-style-type: square;\">\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infopersonal.jsp\">Thông tin cá nhân</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infoPersonalBook.jsp\">Sân đã đặt của bạn</a>\n");
+      out.write("        ");
+  if (session.getAttribute("role") != null) {
+                            if (Integer.parseInt(session.getAttribute("role").toString()) < 3) {
       out.write("\n");
       out.write("\n");
-      out.write("                        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"bookyard.jsp\">Quản lý sân bãi đã đặt</a>\n");
-      out.write("                       ");
- if (true)
-                        {
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"bookyard.jsp\">Quản lý sân bãi đã đặt</a>\n");
+      out.write("        ");
+ if (Integer.parseInt(session.getAttribute("role").toString()) < 2) {
       out.write("\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"manageyard.jsp\">Quản lý sân bãi</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"managebill.jsp\">Quản lý hóa đơn</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"customer.jsp\">Quản lý tài khoản khách hàng</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"staff.jsp\">Quản lý tài khoản nhân viên</a>\n");
-      out.write("                       ");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"manageyard.jsp\">Quản lý sân bãi</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"managebill.jsp\">Quản lý hóa đơn</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"customer.jsp\">Quản lý tài khoản khách hàng</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"staff.jsp\">Quản lý tài khoản nhân viên</a>\n");
+      out.write("        ");
  }
-                    }
+                               }
+                           }
       out.write("\n");
       out.write("\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"home.jsp\">Trở vể trang chính</a>\n");
-      out.write("                </div>\n");
-      out.write("            </div>");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"home.jsp\">Trở vể trang chính</a>\n");
+      out.write("    </div>\n");
+      out.write("</div>");
       out.write("\n");
       out.write("        </div>\n");
       out.write("        <div class=\"col-md-9\" style=\"height: 100%;\">\n");

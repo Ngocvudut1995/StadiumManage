@@ -62,13 +62,14 @@ public final class edityard_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("       ");
       out.write(" \n");
+      out.write("<link href=\"css/Site.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("<link href=\"css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write(" <script src=\"script/jquery-1.11.3.min.js\" type=\"text/javascript\"></script>\n");
       out.write("        <script src=\"script/bootstrap.min.js\" type=\"text/javascript\"></script>\n");
       out.write("        <link href=\"css/font-awesome.min.css\" rel=\"stylesheet\" />\n");
-      out.write("    <link href=\"css/sweetalert2.min.css\" rel=\"stylesheet\" />\n");
-      out.write("    <script src=\"script/sweetalert2.min.js\"></script>\n");
-      out.write("    <script src=\"script/jquery.validate.min.js\"></script>\n");
+      out.write("        <link href=\"css/sweetalert2.min.css\" rel=\"stylesheet\" />\n");
+      out.write("        <script src=\"script/sweetalert2.min.js\"></script>\n");
+      out.write("        <script src=\"script/jquery.validate.min.js\"></script>\n");
       out.write("<nav class=\"navbar navbar-inverse\">\n");
       out.write("        <div class=\"container-fluid\">\n");
       out.write("            <div class=\"navbar-header\">\n");
@@ -134,7 +135,9 @@ if (false)
       out.write("                    </ul>\n");
       out.write("                <ul class=\"nav navbar-nav navbar-right\">\n");
       out.write("                    ");
-if (true)
+          
+                     if (session.getAttribute("userid")== null)
+
                     {
       out.write("\n");
       out.write("                        <li><a href=\"register.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Đăng kí</a></li>\n");
@@ -145,7 +148,9 @@ if (true)
                     else
                     {
       out.write("\n");
-      out.write("                        <li><a href=\"infopersonal.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào @Session[\"Name\"]</a></li>\n");
+      out.write("                        <li><a href=\"infopersonal.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào ");
+      out.print(session.getAttribute("name"));
+      out.write("</a></li>\n");
       out.write("                        <li><a href=\"logout.do\"><span class=\"glyphicon glyphicon-log-in\"></span> Đăng xuất</a></li>\n");
       out.write("                   \n");
       out.write("                   ");
@@ -173,6 +178,9 @@ if (true)
         Model.setIDYard(Model.getIDTuTang());
         Model.setStatus("activiting");
         Model.setTypeYard("5");
+        Model.setPrice(150000);
+         Model.setNameYard("");
+        Model.setDecription("");
          Insert = "add";
     }
 
@@ -203,6 +211,9 @@ if (true)
       out.write("\n");
       out.write("    });\n");
       out.write("\n");
+      out.write("\n");
+      out.write("               \n");
+      out.write("\n");
       out.write("    function upload() {\n");
       out.write("        //console.log(\"sdasdad\");\n");
       out.write("        var formData = new FormData();\n");
@@ -212,38 +223,62 @@ if (true)
       out.write("\n");
       out.write("            formData.append(\"FileUpload\", file);\n");
       out.write("        }\n");
+      out.write("        console.log(FormData);\n");
       out.write("        $.ajax({\n");
-      out.write("            type: \"POST\",\n");
-      out.write("            url: '/uploadyard.do?id=");
+      out.write("                        url: 'uploadfile.do',\n");
+      out.write("                        type: 'POST',\n");
+      out.write("                        data: formData,\n");
+      out.write("                        cache: false,\n");
+      out.write("                        dataType: 'json',\n");
+      out.write("                        processData: false,\n");
+      out.write("                        contentType: false,\n");
+      out.write("                        success: function (response) {\n");
+      out.write("                            console.log(response);\n");
+      out.write("                            //alert(response);\n");
+      out.write("                            if (response.toString().lastIndexOf('true') > -1){\n");
+      out.write("                                //sohinh = response.toString().split(',');\n");
+      out.write("                                alert(\"Upload Successful\");\n");
+      out.write("                            }\n");
+      out.write("                            else if (response.toString() == 'false') {\n");
+      out.write("                                alert(\"Upload error\");\n");
+      out.write("                            }\n");
+      out.write("                        },\n");
+      out.write("                        error: function (response) {\n");
+      out.write("                            alert('ERRORS: ');\n");
+      out.write("                        }\n");
+      out.write("                    });\n");
+      out.write("//        $.ajax({\n");
+      out.write("//            type: \"POST\",\n");
+      out.write("//            url: 'uploadfile.do?id=");
       out.print(Model.getIDYard());
       out.write("',\n");
-      out.write("            data: formData,\n");
-      out.write("            dataType: 'json',\n");
-      out.write("            contentType: false,\n");
-      out.write("            processData: false,\n");
-      out.write("            success: function(response) {\n");
-      out.write("                swal({\n");
-      out.write("                    title: 'Thông báo',\n");
-      out.write("                    text: \"Bạn đã chỉnh sửa thành công\",\n");
-      out.write("                    type: 'success',\n");
-      out.write("                    //showCancelButton: true,\n");
-      out.write("                    confirmButtonColor: '#3085d6',\n");
-      out.write("                    //cancelButtonColor: '#d33',\n");
-      out.write("                    confirmButtonText: 'OK!',\n");
-      out.write("                    //cancelButtonText: 'No, cancel!',\n");
-      out.write("                    confirmButtonClass: 'btn btn-success',\n");
-      out.write("                    //cancelButtonClass: 'btn btn-danger',\n");
-      out.write("                    //buttonsStyling: false\n");
-      out.write("                }).then(function() {\n");
-      out.write("                        window.location.href = \"/manageyard.jsp\";\n");
-      out.write("                    }\n");
-      out.write("                );\n");
-      out.write("                // alert('succes!!');\n");
-      out.write("            },\n");
-      out.write("            error: function(error) {\n");
-      out.write("                swal(\"Thông báo\", \"Đăng nhập thất bại! Vui lòng thử lại!\", \"error\");\n");
-      out.write("            }\n");
-      out.write("        });\n");
+      out.write("//            data: formData,\n");
+      out.write("//            dataType: 'json',\n");
+      out.write("//            contentType: \"multipart/form-data\",\n");
+      out.write("//            processData: false,\n");
+      out.write("//            success: function(response) {\n");
+      out.write("//                swal({\n");
+      out.write("//                    title: 'Thông báo',\n");
+      out.write("//                    text: \"Bạn đã chỉnh sửa thành công\",\n");
+      out.write("//                    type: 'success',\n");
+      out.write("//                    //showCancelButton: true,\n");
+      out.write("//                    confirmButtonColor: '#3085d6',\n");
+      out.write("//                    //cancelButtonColor: '#d33',\n");
+      out.write("//                    confirmButtonText: 'OK!',\n");
+      out.write("//                    //cancelButtonText: 'No, cancel!',\n");
+      out.write("//                    confirmButtonClass: 'btn btn-success',\n");
+      out.write("//                    //cancelButtonClass: 'btn btn-danger',\n");
+      out.write("//                    //buttonsStyling: false\n");
+      out.write("//                }).then(function() {\n");
+      out.write("//                        window.location.href = \"/manageyard.jsp\";\n");
+      out.write("//                    }\n");
+      out.write("//                );\n");
+      out.write("//                // alert('succes!!');\n");
+      out.write("//            },\n");
+      out.write("//            error: function(error) {\n");
+      out.write("//                swal(\"Thông báo\", \"Cập nhật thất bại! Vui lòng thử lại!\", \"error\");\n");
+      out.write("//            }\n");
+      out.write("//        });\n");
       out.write("    }\n");
       out.write("\n");
       out.write("    function updateYard() {\n");
@@ -251,7 +286,6 @@ if (true)
       out.write("        var data = JSON.stringify({\n");
       out.write("            \"IDYard\": $('#IDYard').val(),\n");
       out.write("            \"NameYard\": $('#NameYard').val(),\n");
-      out.write("            \"Address\": $('#Address').val(),\n");
       out.write("            \"Status\": $(\"#Status\").prop('selectedIndex') == 0 ? 'activiting' : 'reparing',\n");
       out.write("            \"TypeYard\": $(\"#TypeYard\").prop('selectedIndex') == 0 ? '5' : '7',\n");
       out.write("            \"Price\": $('#Price').val(),\n");
@@ -260,20 +294,16 @@ if (true)
       out.write("        console.log(data);\n");
       out.write("        $.ajax({\n");
       out.write("            type: \"POST\",\n");
-      out.write("            url: '/");
+      out.write("            url: '");
       out.print(Insert);
-      out.write("yard/',\n");
+      out.write("Yard.do',\n");
       out.write("            contentType: \"application/json; charset=utf-8\",\n");
-      out.write("            data: \"{data:\" + data + \"}\",\n");
-      out.write("            //dataType: 'json',\n");
-      out.write("            //async: true,\n");
-      out.write("            //processData: false,\n");
-      out.write("            //cache: false,\n");
+      out.write("            data: data,\n");
       out.write("            success: function(data) {\n");
       out.write("                //alert('success');\n");
       out.write("                console.log(data.result);\n");
-      out.write("                if (data.result == \"existed\") {\n");
-      out.write("                    swal(\"Thông báo\", \"Tên sân đã tồn tại\", \"error\");\n");
+      out.write("                if (data == \"False\") {\n");
+      out.write("                    swal(\"Thông báo\", \"Đã xảy ra lỗi thêm thất bại!\", \"error\");\n");
       out.write("                } else {\n");
       out.write("                   upload();\n");
       out.write("                }\n");
@@ -296,35 +326,35 @@ if (true)
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write(" <div style=\"background-color: #C1C1C1; height: 40px\">\n");
-      out.write("                <h4 style=\"color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase\">Thông Tin Tài Khoản</h4>\n");
-      out.write("            </div>\n");
-      out.write("            <div style=\"padding: 20px; text-transform: uppercase\">\n");
-      out.write("                <div class=\"clearfix list-group\" style=\"display: block; list-style-type: square;\">\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infopersonal.jsp\">Thông tin cá nhân</a>\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infoPersonalBook.jsp\">Sân đã đặt của bạn</a>\n");
-      out.write("                    ");
-if (true)
-                    {
+      out.write("<div style=\"background-color: #C1C1C1; height: 40px\">\n");
+      out.write("    <h4 style=\"color: white; font-weight: bold; border-bottom: 1px solid #dedede; background-color: #36ace2; float: none; padding: 9px 20px 10px; line-height: 30px; text-transform: uppercase\">Thông Tin Tài Khoản</h4>\n");
+      out.write("</div>\n");
+      out.write("<div style=\"padding: 20px; text-transform: uppercase\">\n");
+      out.write("    <div class=\"clearfix list-group\" style=\"display: block; list-style-type: square;\">\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infopersonal.jsp\">Thông tin cá nhân</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"infoPersonalBook.jsp\">Sân đã đặt của bạn</a>\n");
+      out.write("        ");
+  if (session.getAttribute("role") != null) {
+                            if (Integer.parseInt(session.getAttribute("role").toString()) < 3) {
       out.write("\n");
       out.write("\n");
-      out.write("                        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"bookyard.jsp\">Quản lý sân bãi đã đặt</a>\n");
-      out.write("                       ");
- if (true)
-                        {
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"bookyard.jsp\">Quản lý sân bãi đã đặt</a>\n");
+      out.write("        ");
+ if (Integer.parseInt(session.getAttribute("role").toString()) < 2) {
       out.write("\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"manageyard.jsp\">Quản lý sân bãi</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"managebill.jsp\">Quản lý hóa đơn</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"customer.jsp\">Quản lý tài khoản khách hàng</a>\n");
-      out.write("                            <a class=\"list-group-item col-md-12 col-xs-12\" href=\"staff.jsp\">Quản lý tài khoản nhân viên</a>\n");
-      out.write("                       ");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"manageyard.jsp\">Quản lý sân bãi</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"managebill.jsp\">Quản lý hóa đơn</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"customer.jsp\">Quản lý tài khoản khách hàng</a>\n");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"staff.jsp\">Quản lý tài khoản nhân viên</a>\n");
+      out.write("        ");
  }
-                    }
+                               }
+                           }
       out.write("\n");
       out.write("\n");
-      out.write("                    <a class=\"list-group-item col-md-12 col-xs-12\" href=\"home.jsp\">Trở vể trang chính</a>\n");
-      out.write("                </div>\n");
-      out.write("            </div>");
+      out.write("        <a class=\"list-group-item col-md-12 col-xs-12\" href=\"home.jsp\">Trở vể trang chính</a>\n");
+      out.write("    </div>\n");
+      out.write("</div>");
       out.write("\n");
       out.write("        </div>\n");
       out.write("        <div class=\"col-md-9\" style=\"height: 100%;\">\n");
@@ -380,12 +410,7 @@ if (true)
       out.write("                                <label class=\"control-label col-sm-4\">Hình ảnh:</label>\n");
       out.write("                                <div class=\"col-sm-8\">\n");
       out.write("                                    <input type=\"file\" class=\"form-control\" id=\"FileUpload\" multiple />\n");
-      out.write("                                    @*<button style=\"float: left;margin-left: 20px\" type=\"button\" id=\"Upload\" onclick=\"upload()\">Upload </button>*@\n");
-      out.write("                                    @*<form id=\"form2Submit\">\n");
-      out.write("                                    <input id=\"fileSelect\" name=\"fileSelect[]\" type=\"file\" multiple accept=\".jpg,.png\">\n");
-      out.write("                                    <input type=\"submit\"/>\n");
-      out.write("                                </form>*@\n");
-      out.write("                                    @*<input type=\"file\" hidden class=\"form-control\" id=\"Image\" value=\"@Model.Image\"/>*@\n");
+      out.write("                                    \n");
       out.write("                                </div>\n");
       out.write("                            </div>\n");
       out.write("                            \n");
@@ -393,7 +418,9 @@ if (true)
       out.write("                            <div class=\"form-group\">\n");
       out.write("                                <label class=\"control-label col-sm-4\">Giá:</label>\n");
       out.write("                                <div class=\"col-sm-8\">\n");
-      out.write("                                    <input class=\"form-control\" type=\"number\" id=\"Price\" value=\"@Model.Price\" />\n");
+      out.write("                                    <input class=\"form-control\" type=\"number\" id=\"Price\" value=\"");
+      out.print(Model.getPrice());
+      out.write("\" />\n");
       out.write("                                </div>\n");
       out.write("                            </div>\n");
       out.write("                            <div class=\"form-group\">\n");

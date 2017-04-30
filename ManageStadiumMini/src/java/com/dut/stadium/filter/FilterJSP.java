@@ -107,7 +107,6 @@ public class FilterJSP implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         System.out.println("Begin filtered");
-chain.doFilter(request, response);
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
@@ -119,7 +118,7 @@ chain.doFilter(request, response);
 
         }
         ArrayList<String> listpermission = new ArrayList<String>();
-        String url = req.getRequestURI();
+        String url = req.getPathInfo();
         if (userid == null) {
 
             listpermission.add("errors.jsp");
@@ -127,6 +126,7 @@ chain.doFilter(request, response);
             listpermission.add("yard.jsp");
             listpermission.add("login.jsp");
             listpermission.add("register.jsp");
+            listpermission.add("upload.jsp");
            
         } else {
             listpermission.add("errors.jsp");

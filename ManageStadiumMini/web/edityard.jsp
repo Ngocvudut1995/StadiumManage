@@ -59,6 +59,9 @@
 
     });
 
+
+               
+
     function upload() {
         //console.log("sdasdad");
         var formData = new FormData();
@@ -68,12 +71,14 @@
 
             formData.append("FileUpload", file);
         }
+       
+       
         $.ajax({
             type: "POST",
-            url: '/uploadyard.do?id=<%=Model.getIDYard()%>',
+            url: 'uploadfile.do?id=<%=Model.getIDYard()%>',
             data: formData,
             dataType: 'json',
-            contentType: false,
+            contentType: "multipart/form-data",
             processData: false,
             success: function(response) {
                 swal({
@@ -95,7 +100,7 @@
                 // alert('succes!!');
             },
             error: function(error) {
-                swal("Thông báo", "Đăng nhập thất bại! Vui lòng thử lại!", "error");
+                swal("Thông báo", "Cập nhật thất bại! Vui lòng thử lại!", "error");
             }
         });
     }
@@ -119,7 +124,7 @@
             success: function(data) {
                 //alert('success');
                 console.log(data.result);
-                if (data.result == "False") {
+                if (data == "False") {
                     swal("Thông báo", "Đã xảy ra lỗi thêm thất bại!", "error");
                 } else {
                    upload();

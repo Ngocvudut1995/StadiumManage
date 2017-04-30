@@ -80,13 +80,13 @@ public final class demoupload_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        data.append(key, value);\n");
       out.write("                    });\n");
       out.write("\n");
-      out.write("                    //console.log(data);\n");
+      out.write("                    console.log(data);\n");
       out.write("                    postFilesData(data);\n");
       out.write("                }\n");
       out.write("\n");
       out.write("                function postFilesData(data) {\n");
       out.write("                    $.ajax({\n");
-      out.write("                        url: 'uploadfile.do',\n");
+      out.write("                        url: 'uploadFile',\n");
       out.write("                        type: 'POST',\n");
       out.write("                        data: data,\n");
       out.write("                        cache: false,\n");

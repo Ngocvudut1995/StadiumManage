@@ -29,13 +29,13 @@
     var id = 0;
     function openCreate() {
         id = 0;
-        location.href = 'edityard';
+        location.href = 'edityard.jsp';
     }
     function openEdit() {
         if (id === 0) {
-            location.href = 'edityard';
+            location.href = 'edityard.jsp';
         } else {
-            location.href = 'edityard?id=' + id;
+            location.href = 'edityard.jsp?id=' + id;
         }
     }
         function getrow(value) {

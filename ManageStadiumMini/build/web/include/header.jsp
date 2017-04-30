@@ -1,12 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%> 
-<link href="../css/Site.css" rel="stylesheet" type="text/css"/>
-<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
- <script src="../script/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="../script/bootstrap.min.js" type="text/javascript"></script>
-        <link href="../css/font-awesome.min.css" rel="stylesheet" />
-        <link href="../css/sweetalert2.min.css" rel="stylesheet" />
-        <script src="../script/sweetalert2.min.js"></script>
-        <script src="../script/jquery.validate.min.js"></script>
+<link href="css/Site.css" rel="stylesheet" type="text/css"/>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+ <script src="script/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="script/bootstrap.min.js" type="text/javascript"></script>
+        <link href="css/font-awesome.min.css" rel="stylesheet" />
+        <link href="css/sweetalert2.min.css" rel="stylesheet" />
+        <script src="script/sweetalert2.min.js"></script>
+        <script src="script/jquery.validate.min.js"></script>
 <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">

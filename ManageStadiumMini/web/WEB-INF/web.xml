@@ -81,6 +81,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>com.dut.stadium.controller.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>com.dut.stadium.controller.FileUploadServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register.do</url-pattern>
@@ -95,7 +99,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>/DUT/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateCustomer</servlet-name>
@@ -140,6 +144,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/uploadFile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

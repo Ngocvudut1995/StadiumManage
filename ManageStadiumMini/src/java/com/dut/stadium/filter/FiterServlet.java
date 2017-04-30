@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -117,7 +118,7 @@ public class FiterServlet implements Filter {
 
         }
         ArrayList<String> listpermission = new ArrayList<String>();
-        String url = req.getRequestURI();
+        String url = req.getPathInfo();
         if (userid == null) {
 
             listpermission.add("register.do");
@@ -162,6 +163,16 @@ public class FiterServlet implements Filter {
             }
 
         }
+         for (String item : listpermission) {
+            if (url.indexOf(item) != -1) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("errors.jsp");
+        dispatcher.forward(request, response);
+
+        return;
     }
 
     /**

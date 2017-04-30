@@ -3,6 +3,8 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import com.dut.stadium.model.Yard;
+import com.dut.stadium.model.HomeView;
 
 public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -49,6 +51,8 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -56,12 +60,17 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <title>JSP Page</title>\n");
       out.write("       \n");
       out.write("    </head>\n");
-      out.write("    \n");
+      out.write("    <body>\n");
       out.write("        ");
       out.write(" \n");
+      out.write("<link href=\"css/Site.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("<link href=\"css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write(" <script src=\"script/jquery-1.11.3.min.js\" type=\"text/javascript\"></script>\n");
       out.write("        <script src=\"script/bootstrap.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("        <script src=\"script/jquery-1.11.3.min.js\" type=\"text/javascript\"></script>\n");
+      out.write("        <link href=\"css/font-awesome.min.css\" rel=\"stylesheet\" />\n");
+      out.write("        <link href=\"css/sweetalert2.min.css\" rel=\"stylesheet\" />\n");
+      out.write("        <script src=\"script/sweetalert2.min.js\"></script>\n");
+      out.write("        <script src=\"script/jquery.validate.min.js\"></script>\n");
       out.write("<nav class=\"navbar navbar-inverse\">\n");
       out.write("        <div class=\"container-fluid\">\n");
       out.write("            <div class=\"navbar-header\">\n");
@@ -70,7 +79,7 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <span class=\"icon-bar\"></span>\n");
       out.write("                    <span class=\"icon-bar\"></span>\n");
       out.write("                </button>\n");
-      out.write("                <a class=\"navbar-brand\" href=\"/Home\" style=\"padding: 0px\">\n");
+      out.write("                <a class=\"navbar-brand\" href=\"home.jsp\" style=\"padding: 0px\">\n");
       out.write("                  \n");
       out.write("                    <img  class=\"hidden-xs\" src=\"Content/Logo/coollogo_com-367326.png\" style=\"width: 100%\"/>\n");
       out.write("                </a>\n");
@@ -78,54 +87,76 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"collapse navbar-collapse\" id=\"myNavbar\">\n");
       out.write("               \n");
       out.write("                    <ul class=\"nav navbar-nav\" id=\"mynav\">\n");
-      out.write("                        <li class='@if (ViewBag.Title.Equals(\"Home\"))\n");
-      out.write("                               {\n");
-      out.write("                                   @Html.Raw(\"active\")\n");
-      out.write("                                   ;\n");
-      out.write("                               } '><a href=\"/Home\">Trang chủ</a></li>\n");
-      out.write("                        <li class='@if (ViewBag.Title.Equals(\"Home1\"))\n");
-      out.write("                               {\n");
-      out.write("                                   @Html.Raw(\"active\")\n");
-      out.write("                                   ;\n");
-      out.write("                               } '><a href=\"#\">Giới thiệu</a></li>\n");
+      out.write("                        <li class='");
+if (true)
+                               {
+                                   out.print("active");
+                                  
+                               } 
+      out.write("'><a href=\"home.jsp\">Trang chủ</a></li>\n");
+      out.write("                        <li class='");
+if (false)
+                               {
+                                   out.print("active");
+                                  
+                               } 
+      out.write("'><a href=\"#\">Giới thiệu</a></li>\n");
       out.write("\n");
-      out.write("                        <li class='@if (ViewBag.Title.Equals(\"Home1\"))\n");
-      out.write("                               {\n");
-      out.write("                                   @Html.Raw(\"active\")\n");
-      out.write("                                   ;\n");
-      out.write("                               } '><a href=\"#\">Khuyến mãi</a></li>\n");
+      out.write("                        <li class='");
+if (false)
+                               {
+                                   out.print("active");
+                                  
+                               } 
+      out.write("'><a href=\"#\">Khuyến mãi</a></li>\n");
       out.write("\n");
-      out.write("                        <li class='@if (ViewBag.Title.Equals(\"Home1\"))\n");
-      out.write("                               {\n");
-      out.write("                                   @Html.Raw(\"active\")\n");
-      out.write("                                   ;\n");
-      out.write("                               } '><a href=\"#\">Giải đấu</a></li>\n");
+      out.write("                        <li class='");
+if (false)
+                               {
+                                   out.print("active");
+                                  
+                               } 
+      out.write("'><a href=\"#\">Giải đấu</a></li>\n");
       out.write("\n");
-      out.write("                        <li class='@if (ViewBag.Title.Equals(\"Home1\"))\n");
-      out.write("                               {\n");
-      out.write("                                   @Html.Raw(\"active\")\n");
-      out.write("                                   ;\n");
-      out.write("                               } '><a href=\"#\">Liên hệ</a></li>\n");
+      out.write("                        <li class='");
+if (false)
+                               {
+                                   out.print("active");
+                                  
+                               } 
+      out.write("'><a href=\"#\">Liên hệ</a></li>\n");
       out.write("\n");
-      out.write("                        <li class='@if (ViewBag.Title.Equals(\"Manage Yard\"))\n");
-      out.write("                               {\n");
-      out.write("                                   @Html.Raw(\"active\")\n");
-      out.write("                                   ;\n");
-      out.write("                               } '><a href=\"/Yard/Manage\">Danh sách sân</a></li>\n");
+      out.write("                        <li class='");
+if (false)
+                               {
+                                   out.print("active");
+                                  
+                               } 
+      out.write("'><a href=\"#\">Danh sách sân</a></li>\n");
       out.write("                    </ul>\n");
       out.write("                <ul class=\"nav navbar-nav navbar-right\">\n");
-      out.write("                    @if (Session[\"userid\"] == null)\n");
-      out.write("                    {\n");
-      out.write("                        <li><a href=\"/Home/Register\"><span class=\"glyphicon glyphicon-user\"></span> Đăng kí</a></li>\n");
-      out.write("                        <li><a href=\"/Home/Login\"><span class=\"glyphicon glyphicon-log-in\"></span> Đăng nhập</a></li>\n");
+      out.write("                    ");
+          
+                     if (session.getAttribute("userid")== null)
+
+                    {
       out.write("\n");
-      out.write("                    }\n");
-      out.write("                    else\n");
-      out.write("                    {\n");
-      out.write("                        <li><a href=\"/Home/Info\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào @Session[\"Name\"]</a></li>\n");
-      out.write("                        <li><a href=\"/System/Logout\"><span class=\"glyphicon glyphicon-log-in\"></span> Đăng xuất</a></li>\n");
+      out.write("                        <li><a href=\"register.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Đăng kí</a></li>\n");
+      out.write("                        <li><a href=\"login.jsp\"><span class=\"glyphicon glyphicon-log-in\"></span> Đăng nhập</a></li>\n");
+      out.write("\n");
+      out.write("                    ");
+}
+                    else
+                    {
+      out.write("\n");
+      out.write("                        <li><a href=\"infopersonal.jsp\"><span class=\"glyphicon glyphicon-user\"></span> Xin Chào ");
+      out.print(session.getAttribute("name"));
+      out.write("</a></li>\n");
+      out.write("                        <li><a href=\"logout.do\"><span class=\"glyphicon glyphicon-log-in\"></span> Đăng xuất</a></li>\n");
       out.write("                   \n");
-      out.write("                    }\n");
+      out.write("                   ");
+ }
+      out.write("\n");
       out.write("                   \n");
       out.write("                </ul>\n");
       out.write("            </div>\n");
@@ -179,18 +210,33 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <fieldset>\n");
       out.write("        <h3 style=\"color: rgb(7, 153, 7)\">Danh sách sân 5 người</h3>\n");
       out.write("        <div class=\"row\">\n");
-      out.write("            @foreach (var item in Model.yard_5)\n");
-      out.write("            {\n");
+      out.write("            ");
+
+                HomeView Model = new HomeView();
+                for (Yard item : Model.yard_5)
+            {
+      out.write("\n");
       out.write("                <div class=\"col-sm-3\">\n");
       out.write("                    <div class=\"panel panel-primary\">\n");
       out.write("                        <div class=\"panel-heading\">Sân 5 Người</div>\n");
       out.write("                        <div class=\"panel-body\">\n");
-      out.write("                            <a href=\"/Yard/Index/@item.IDYard\"><img src=\"~/@item.Image\" class=\"img-responsive\" style=\"width: 100%\" alt=\"Image\"></a>\n");
+      out.write("                            <a href=\"yard.jdp?id=");
+      out.print(item.getIDYard());
+      out.write("\"><img src=\"");
+      out.print(item.getImage());
+      out.write("\" class=\"img-responsive\" style=\"width: 100%\" alt=\"Image\"></a>\n");
       out.write("                        </div>\n");
-      out.write("                        <div class=\"panel-footer\"><a href=\"/Yard/Index/@item.IDYard\">@item.NameYard</a></div>\n");
+      out.write("                        <div class=\"panel-footer\"><a href=\"yard.jdp?id=");
+      out.print(item.getIDYard());
+      out.write('"');
+      out.write('>');
+      out.print(item.getNameYard());
+      out.write("</a></div>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
-      out.write("            }\n");
+      out.write("         ");
+   }
+      out.write("\n");
       out.write("\n");
       out.write("        </div>\n");
       out.write("    </fieldset>\n");
@@ -202,23 +248,40 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<div class=\"container\">\n");
       out.write("    <h3 style=\"color: rgb(7, 153, 7)\">Danh sách sân 7 người</h3>\n");
       out.write("    <div class=\"row\">\n");
-      out.write("        @foreach (var item in Model.yard_7)\n");
-      out.write("            {\n");
+      out.write("        ");
+
+                
+                for (Yard item : Model.yard_7)
+            {
+      out.write("\n");
       out.write("            <div class=\"col-sm-3\">\n");
       out.write("                <div class=\"panel panel-success\">\n");
       out.write("                    <div class=\"panel-heading\">Sân 7 Người</div>\n");
       out.write("                    <div class=\"panel-body\">\n");
-      out.write("                        <a href=\"/Yard/Index/@item.IDYard\"><img src=\"~/@item.Image\" class=\"img-responsive\" style=\"width: 100%\" alt=\"Image\"></a>\n");
+      out.write("                        <a href=\"");
+      out.print(item.getIDYard());
+      out.write("\"><img src=\"");
+      out.print(item.getImage());
+      out.write("\" class=\"img-responsive\" style=\"width: 100%\" alt=\"Image\"></a>\n");
       out.write("                    </div>\n");
       out.write("                    <div class=\"panel-footer\">\n");
-      out.write("                        <a href=\"/Yard/Index/@item.IDYard\">@item.NameYard</a>\n");
+      out.write("                        <a href=\"");
+      out.print(item.getIDYard());
+      out.write('"');
+      out.write('>');
+      out.print(item.getNameYard());
+      out.write("</a>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
-      out.write("        }\n");
+      out.write("       ");
+ }
+      out.write("\n");
       out.write("\n");
       out.write("    </div>\n");
       out.write("</div>\n");
+      out.write("    </body>\n");
+      out.write("    \n");
       out.write("    \n");
       out.write("</html>\n");
     } catch (Throwable t) {
